@@ -1,0 +1,8 @@
+def(self, nums: List[int], target: int) -> List[int]
+  dict_nums = {} #value : index
+  
+  for i, n in enumerate(nums):
+    diff = target - n
+    if diff in dict_nums:
+      return [dict_nums[n], i]
+    dict_nums[n] = i
