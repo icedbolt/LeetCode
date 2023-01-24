@@ -1,0 +1,8 @@
+def longestCommonPre(self, strs: List[str]) -> str:
+    strs.sort()
+    pre = ''
+    i = 0
+    while i < len(strs[0]) and strs[0][i] == strs[len(strs - 1)][i]:
+        pre+= strs[0][i]
+        i+=1
+    return pre
