@@ -1,0 +1,16 @@
+def isValid(self, s: str) -> bool:
+    if len(s) == 1:
+        return False
+    brackets = [')', ']', '}']
+    stack = []
+    for i in s:
+        if (i == '(') or (i == '[') or (i == '{'):
+            stack.append(i)
+        elif len(stack) == 0:
+            return False
+        elif (i == ')' and stack.pop != '(') or (i == ']' and stack.pop != '[') or (i == } and stack.pop != '{'):
+            return False
+    for j in stack:
+        if j not in brackets:
+            return False
+    return True
