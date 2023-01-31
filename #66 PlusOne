@@ -1,0 +1,12 @@
+def plusOne(self, digits: List[int]) -> List[int]:
+    rem = 1
+    for i in range(len(digits)-1,-1,-1):
+        num = digit[i] + rem
+        digit[i] = rem % 10
+        rem = num // 10
+        
+    if rem == 0:
+        return digits
+    else:
+        digits.insert(0,rem)
+        return digits
