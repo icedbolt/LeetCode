@@ -1,0 +1,5 @@
+def singleNumber(self, nums: List[int]) -> int:
+    res = 0                                         # a xor 0 = a & a xor a = 0
+    for i in nums:
+        res = res ^ i                               # xor in binary
+    return res
