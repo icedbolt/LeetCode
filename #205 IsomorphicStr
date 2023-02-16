@@ -1,0 +1,12 @@
+def isIsomorphic(self, s: str, t: str) -> bool:
+    dicST, dicTS = {}, {}
+    
+    for i in range(len(s)):
+        c1, c2 = s[i], t[i]
+        
+        if ((c1 in dicST and dictTS[c1] != c2) or (c2 in dictTS and dictST[c2] != c1)):
+            return False
+            
+        dicST[c1] = c2
+        dicTS[c2] = c1
+    return True
