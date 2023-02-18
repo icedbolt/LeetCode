@@ -1,2 +1,12 @@
 def containDuplicate(self, nums: List[int]) -> bool:
     return len(set(nums)) != len(nums)
+    
+    ------or------
+    
+    count = dict()
+    for n in nums:
+        count[n] = count(n, 0) + 1
+        if count[n] > 1:
+            return True
+            
+    return False
