@@ -1,0 +1,11 @@
+def containsDuplicate(self, nums: List[int], k: int) -> bool:
+    n = dict()
+    for i in range(len(nums)):
+        if nums[i] not in n:
+            n[nums[i]] = i
+        elif nums[i] in n:
+            if i - n[nums[i]] <= k:
+                return True
+            else:
+                n[nums[i]] = i
+    return False
