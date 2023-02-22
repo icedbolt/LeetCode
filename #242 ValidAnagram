@@ -9,3 +9,7 @@ def isAnagram(self, s: str, t: str) -> bool:
         if sword[l] != tword[l]:
             return False
     return True
+
+
+-------or--------
+    return sorted(s) == sorted(t)
