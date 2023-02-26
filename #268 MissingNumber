@@ -1,0 +1,7 @@
+def missingNum(self, nums: List[int]) -> int:
+    num = []
+    for i in range(len(nums) + 1):
+        num.append(i)
+    for n in num:
+        if n not in nums:
+            return n
