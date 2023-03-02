@@ -1,0 +1,14 @@
+def wordPattern(self, pattern: str, s: str) -> bool:
+    words = s.split()
+    if len(pattern) != len(words):
+        return False
+    mapping = {}    
+    for i in range(len(pattern)):
+        if pattern[i] in mapping:
+            if mapping[pattern[i]] != words[i]:
+                return False
+        else:
+            if mapping[pattern[i]] in mapping.values():         # Checking if same pattern letter is associated with the word ([dog, dog, dog, dog] & "abba")
+                return False
+            mapping[pattern[i]] = words[i]
+    return False
