@@ -1,0 +1,10 @@
+def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+    dict1 = {}
+    for n in nums1:
+        dict1[n] = dict1.get(n,0) + 1
+    list1 = []
+    for m in nums2:
+        if m in dict1 and dict1[m] > 0:
+            list1.append(m)
+            dict1[m] -= 1
+    return list1
