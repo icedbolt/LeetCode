@@ -1,0 +1,8 @@
+def firstUniq(self, s: str) -> int:
+    letters = {}
+    for i in s:
+        letters[i] = letters.get(i,0) + 1
+    for j in range(len(s)):
+        if letters[s[j]] == 1:
+            return j
+    return -1
