@@ -11,7 +11,7 @@ def letterCombination(self, digits: str) -> List[str]:
             "9": "wxyz"
         }
     
-    def backTrack(i,  curStr):                  # Defining Recursive function inside the main function
+    def backTrack(i,  curStr):                  # Defining Recursive function inside the main function: i is the index of digit, curStr is the current string we're building
         if len(curStr) == len(digits)           # Single Base Case
             res.append(curStr)
             return res
