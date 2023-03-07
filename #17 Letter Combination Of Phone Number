@@ -1,0 +1,23 @@
+def letterCombination(self, digits: str) -> List[str]:
+    res = []
+    numLetters = {
+            "2": "abc",
+            "3": "def",
+            "4": "ghi",
+            "5": "jkl",
+            "6": "mno",
+            "7": "pqrs",
+            "8": "tuv",
+            "9": "wxyz"
+        }
+    
+    def backTrack(i,  curStr):                  # Defining Recursive function inside the main function
+        if len(curStr) == len(digits)           # Single Base Case
+            res.append(curStr)
+            return res
+        for c in numLetters[digits[i]]:         # Recursive Case
+            backTrack(i + 1, curStr + c)        # Recursive Call: i = i+1 cuz we're moving to the next digit & for the current str we're gonna just take the current str & add one more char to it.
+    if digits:                                  # Call only when the digit is non empty
+        backTrack(0,"")                         # Function Call
+        
+    return res
