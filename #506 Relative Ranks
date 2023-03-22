@@ -1,0 +1,16 @@
+def relativeRank(self, scores: List[nums]) -> List[str]:
+    sorted_scores = sorted(scores, reverse=True)
+    map = {}
+    res =[]
+    for i in range(len(scores)):
+        if i == 0:
+            map[sorted_scores[i]] = "Gold"
+        elif i == 1:
+            map[sorted_scores[i]] = "Silver"
+        elif i == 2:
+            map[sorted_scores[i]] = "Bronze"
+        else:
+            map[sorted_scores[i]] = str(i+1)
+    for n in scores:
+        res.append(map[n])
+    return res
