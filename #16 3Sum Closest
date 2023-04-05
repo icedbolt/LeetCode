@@ -1,0 +1,29 @@
+def 3sumClosest(self, nums: List[int], target: int) -> int:
+--------------BruteForce----------------------------------
+    closeSum = float('inf')
+    for i in range(len(nums) - 2):
+        for j in range(i+1, len(nums) - 1):
+            for k in range(j+1, len(nums)):
+                total = nums[i] + nums[j] + nums[k]
+                if abs(total - target) < abs(closeSum - target):
+                    closeSum = target
+    return closeSum
+    
+----------------O(n^2)---------------------------------------
+    closeSum = float('inf')
+    nums.sort()
+    for i in range(len(nums) - 2)
+        l = i+1
+        r = len(nums) - 1
+        
+        while l < r:
+            total = nums[i] + nums[l] + nums[r]
+            if abs(total - target) < abs(closeSum - target):
+                closeSum = target
+            elif total = target:
+                return total
+            elif total < target:
+                l += 1
+            else:
+                r -= 1
+    return closeSum
