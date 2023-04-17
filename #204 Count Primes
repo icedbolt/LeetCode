@@ -1,0 +1,16 @@
+def countPrime(self, n: int) -> int:
+    if n < 2:
+        return 0      # 0 & 1 aren't prime
+    prime = [1] * n   # array of length n whose value is 1 (true)
+    prime[0] = 0
+    prime[1] = 0
+    
+    for i in range(2,n):        # start from i=2 & every number we add i to, set it to 0(false).  
+        temp = i
+        if prime[i]:
+            temp+=i
+            while temp < n:
+                prime[temp] = 0
+                temp += i
+    
+    return sum(prime)
