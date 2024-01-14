@@ -8,7 +8,7 @@ def threesum(self, nums: List[int]) -> List[List[int]]:
         elif num < 0:
             n.append(num)
         else:
-            n.append(num)
+            z.append(num)
     N, P = set(n), set(p)
     
     if z:                                           #checking for +ve & -ve numbers in case of a 0.
