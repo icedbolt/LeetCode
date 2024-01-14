@@ -6,14 +6,14 @@ def 3sumClosest(self, nums: List[int], target: int) -> int:
             for k in range(j+1, len(nums)):
                 total = nums[i] + nums[j] + nums[k]
                 if abs(total - target) < abs(closeSum - target):
-                    closeSum = target
+                    closeSum = total
     return closeSum
     
 ----------------O(n^2)---------------------------------------
     closeSum = float('inf')
     nums.sort()
     for i in range(len(nums) - 2)
-        l = i+1
+        l = i+1                                 #two pointers, l & r.
         r = len(nums) - 1
         
         while l < r:
