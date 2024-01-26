@@ -1,12 +1,12 @@
 def isIsomorphic(self, s: str, t: str) -> bool:
-    dicST, dicTS = {}, {}
+    mapST, mapTS = {}, {}
     
     for i in range(len(s)):
         c1, c2 = s[i], t[i]
         
-        if ((c1 in dicST and dictTS[c1] != c2) or (c2 in dictTS and dictST[c2] != c1)):     #check if c1/c2 isn't already mapped to a different character.
+        if ((c1 in mapST and mapTS[c1] != c2) or (c2 in mapTS and mapST[c2] != c1)):     #check if c1/c2 isn't already mapped to a different character.
             return False
             
-        dicST[c1] = c2      #map c1 -> c2
-        dicTS[c2] = c1      #map c2 -> c1
+        mapST[c1] = c2      #map c1 -> c2
+        mapTS[c2] = c1      #map c2 -> c1
     return True
