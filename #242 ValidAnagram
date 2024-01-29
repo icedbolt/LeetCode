@@ -1,12 +1,12 @@
 def isAnagram(self, s: str, t: str) -> bool:
     if len(s) != len(t):
-        rturn False
+        return False
     sword, tword = {}, {}
     for i in range(len(s)):
         sword[s[i]] = sword.get(s[i], 0) + 1
         tword[s[i]] = tword.get(t[i], 0) + 1
     for l in sword:
-        if sword[l] != tword[l]:
+        if sword[l] != tword.get(l, 0):
             return False
     return True
 
