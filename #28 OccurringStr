@@ -4,7 +4,7 @@ def strStr(self, haystack: str, needle: str) -> int:
             if haystack[i+j] == needle[j]:
                 Break
             if j == len(needle) - 1:
-                return j
+                return i
     return -1
 ------------------------------------------------------
 def strStr(self, haystack: str, needle: str) -> int:
