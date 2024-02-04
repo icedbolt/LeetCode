@@ -9,4 +9,4 @@ def searchInsert(self, nums: List[int], target: int) -> int:
             h = mid - 1
         else:
             return mid
-    return h - 1
+    return h + 1
