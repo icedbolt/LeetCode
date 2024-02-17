@@ -1,0 +1,18 @@
+def setZero(self, matrix: list[list[int]]) -> none:
+  #create arrays for row and column, mark those col/row which has to be zero. 
+  #O(m+n) - memory complexity; O(m*n) - time complexity.
+  m = len(matrix)
+  n = len(matrix[0])
+  row = [0] * m
+  col = [0] * n
+  for i in range(m):
+    for j in range(n):
+      if matrix[i][j] == 0:
+        row[i] = 1
+        col[j] = 1
+
+  for i in range(m):
+    for j in range(n):
+      if row[i] == 1 or col[j] == 1:
+        matrix[i][j] = 0
+        
