@@ -16,3 +16,29 @@ def setZero(self, matrix: list[list[int]]) -> none:
       if row[i] == 1 or col[j] == 1:
         matrix[i][j] = 0
         
+--------------------------------------------------------------------------------------------------+
+#O(1) - Space/memory compelxity.
+rowZero = True
+
+#determine which row/col has to be zero
+for i in range(m):
+    for j in range(n):
+      if matrix[i][j] == 0:
+        matrix[0][j] = 0
+        if i > 0:
+          matrix[i][0] = 0
+        else:
+          rowZero = False
+
+for i in range(1,m):     #skip matrix[0][0] as we have used extra memory (rowZero) for it.
+    for j in range(1,n):
+      if matrix[0][j] == 0 or matrix[i][0] == 0:
+        matrix[i][j] = 0
+
+if matrix[0][0] == 0:    #for 0 row.
+  for i in range(m):
+    matrix[i][0] = 0
+
+if rowZero:              #for 0 column.
+  for j in range(n):
+    matrix[0][j] = 0
