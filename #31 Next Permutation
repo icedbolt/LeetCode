@@ -1,0 +1,18 @@
+def nextPermutation(self, nums: List[int]) -> none:
+  ind = -1
+  for i in range(len(nums) - 2, -1, -1):        #Find the break point
+    if nums[i] < nums[i+1]:
+      ind = i
+      break
+
+  if ind == -1:
+    nums = nums.reverse()
+    return
+
+  for i in range(len(nums)-1, ind, -1):      #Swap at the break point
+    if nums[i] > nums[ind]:
+      nums[i], nums[ind] = nums[ind], nums[i]
+      break
+
+  nums[ind+1:] = reversed(nums[ind+1:])       #reverse the remaining ints after break point.
+  return nums
