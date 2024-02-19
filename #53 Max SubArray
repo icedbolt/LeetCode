@@ -1,0 +1,10 @@
+def maxSubarray(self, nums: List[int]) -> int:
+  #Start with nums[0], remove the -ve prefix
+  MaxSub = nums[0]
+  sub = 0
+  for n in nums:
+    if sub < 0:
+      sub = 0
+    sub += n
+    MaxSub = max(MaxSub, sub)
+  return MaxSub
