@@ -1,0 +1,24 @@
+def rotateImage(self, matrix: List[List[int]]) -> none:
+  l = 0
+  r = len(matrix) - 1
+  while l < r:
+    for i in range(r-i):        #we'll have (r-l) rotations in total
+      top = l
+      bottom = r
+      #save topLeft value
+      topLeft = matrix[top][l + i]
+  
+      #move bottom left to top left
+      matrix[top][l + i] = matrix[bottom - i][l]
+  
+      #move bottom right to bottom left
+      matrix[bottom - i][l] = matrix[bottom][r-i]
+  
+      #move top right to bottom right
+      matrix[bottom][r-i] = matrix[top + i][r]
+  
+      #move topLeft to top right
+      matrix[top + i][r] = topLeft
+  
+    l += 1
+    r -= 1
