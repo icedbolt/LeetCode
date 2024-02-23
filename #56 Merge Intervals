@@ -13,3 +13,13 @@ def mergeIntervals(self, intervals[List[List[int]]) -> List[List[]]:
         break
     ans.append([start, end])
   return ans
+----------------------------------------------------------------------------------
+# Optimal Solution
+interval.sort()
+ans = []
+for i in range(len(intervals)):
+  if not ans or interval[i][0] > ans[-1][1]:
+    ans.append(interval[i])                        # single pass approach
+  else:
+    ans[-1][1] = max(ans[-1][1], interval[i][1])
+return ans
