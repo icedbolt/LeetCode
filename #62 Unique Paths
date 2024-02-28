@@ -1,0 +1,10 @@
+class solution:
+  def uniquePaths(self, m: int, n: int) -> int:
+    # DP    (https://www.youtube.com/watch?v=IlEsdxuD4lY)
+    row = [1] * n         # For the last row.
+    for i in range(m):
+      newRow = [1] * n
+      for j in range(n-2, -1, -1):
+        newRow[j] = newRow[j+1] + row[j]
+      row = newRow
+    return row[0]
