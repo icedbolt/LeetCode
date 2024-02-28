@@ -7,3 +7,34 @@ def majorityEle(self, nums: List[int]) -> List[int]:
       output.append(n)
   return output
 ---------------------------------------------------------------------
+# O(1) - Boyer Moore’s Voting Algorithm
+c1, c2 = 0, 0
+ele1, ele2 = float('-inf'), float('-inf')
+for i in range(len(nums)):
+  if c1 == 0 and ele2 != nums[i]:
+    c1 = 1
+    ele1 = nums[i]
+  elif c2 == 0 and ele1 != nums[i]:
+    c2 = 1
+    ele2 = nums[i]
+  elif ele1 == nums[i]:
+    c1 += 1
+  elif ele2 == nums[i]:
+    c2 += 1
+  else:
+    c1 -= 1
+    c2 -= 1
+
+c1, c2 = 0, 0
+for n in nums:
+  if ele1 == n:
+    c1 += 1
+  if ele2 == n:
+    c2 += 1
+res = []
+if c1 > len(nums) / 3:
+  res.append(ele1)
+if c2 > len(nums) / 3:
+  res.append(ele2)
+
+return res
