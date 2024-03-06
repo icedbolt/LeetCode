@@ -1,0 +1,17 @@
+def longestSeq(self, nums: List[int]) -> int:
+  longest = 1
+  for i in range(len(nums)):
+    x = nums[i]
+    count = 1
+    while self.search(nums, x+1):        #function call
+      x += 1
+      count += 1
+    longest = max(longest, count)
+  return longest
+
+def search(self, a, num):
+  for i in range(len(a)):
+    if a[i] == num:
+      return True
+  return False
+------------------------------------------------------------------------------------------------
