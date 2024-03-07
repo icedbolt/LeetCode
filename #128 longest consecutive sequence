@@ -15,3 +15,16 @@ def search(self, a, num):
       return True
   return False
 ------------------------------------------------------------------------------------------------
+longest = 1
+numb = set()      #input could be [0, 1, 1, 2], output should be 3 not 2.
+for n in nums:
+  set.add(n)
+for n in numb:
+  if n-1 not in numb:
+    count = 1
+    x = n + 1
+    while x in numb:
+      count += 1
+      x += 1
+    longest = max(longest, count)
+return longest
