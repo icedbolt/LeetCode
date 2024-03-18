@@ -1,0 +1,13 @@
+def posOfLargeGrps(self, str: s) -> List[List[int]]:
+  res = []
+  c = ''
+  for i in range(len(s)):
+    if len(c) != 0 and c[-1] != s[i]:
+      if len(c) >= 3:
+        res.append([i-len(c), i-1])
+      c = s[i]
+    else:
+      c += s[i]
+    if len(c) >= 3:
+      res.append([len(s)-len(c), len(s)-1])
+  return res
