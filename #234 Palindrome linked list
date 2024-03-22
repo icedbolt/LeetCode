@@ -22,7 +22,7 @@ while fast and fast.next:
   fast = fast.next.next
   slow = slow.next
 
-#reversing the linked list
+#reversing the second half
 prev = None
 while slow:
   temp = slow.next
