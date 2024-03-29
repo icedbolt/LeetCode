@@ -35,10 +35,10 @@ for i in range(1,m):     #skip matrix[0][0] as we have used extra memory (rowZer
       if matrix[0][j] == 0 or matrix[i][0] == 0:
         matrix[i][j] = 0
 
-if matrix[0][0] == 0:    #for 0 row.
+if matrix[0][0] == 0:    #for 0 column.
   for i in range(m):
     matrix[i][0] = 0
 
-if rowZero:              #for 0 column.
+if rowZero:              #for 0 row.
   for j in range(n):
     matrix[0][j] = 0
