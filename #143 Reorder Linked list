@@ -1,0 +1,24 @@
+def reorder(self, head: [ListNode]) -> None:
+  slow, fast = head, head.next
+  while fast, fast.next:
+    slow = slow.next
+    fast = fast.next.next
+  
+  #reversing the second half
+  second = slow.next          #begining of second half of the list
+  slow.next = None            #splitting into two different list
+  prev = None
+  while second:
+    temp = second.next
+    second.next = prev
+    prev = second
+    second = temp
+
+  #merge two halfs
+  first, second = head, prev
+  while second:
+  tmp1, tmp2 = first.next, second.next
+  first = second
+  second = tmp1
+  first, second = tmp1, tmp2
+  
