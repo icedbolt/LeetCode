@@ -1,5 +1,5 @@
 def reorder(self, head: [ListNode]) -> None:
-  slow, fast = head, head.next
+  slow, fast = head, head
   while fast, fast.next:
     slow = slow.next
     fast = fast.next.next
@@ -16,9 +16,9 @@ def reorder(self, head: [ListNode]) -> None:
 
   #merge two halfs
   first, second = head, prev
-  while second:
+  while second:        #second half can be shorter than first half
   tmp1, tmp2 = first.next, second.next
-  first = second
-  second = tmp1
+  first.next = second
+  second.next = tmp1
   first, second = tmp1, tmp2
   
