@@ -1,0 +1,8 @@
+#Remove duplicates from sorted linked list
+def removeDuplicates(self, head: [listNode]) -> [listNode]:
+  cur = head
+  while cur:
+    while cur.next and cur.val == cur.next.val:          #check if cur.next exist
+      cur.next = cur.next.next
+    cur = cur.next
+  return head
