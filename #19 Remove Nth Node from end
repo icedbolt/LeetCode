@@ -1,0 +1,14 @@
+def removeNode(self, head: [ListNode]) -> [ListNode]:
+  dummy = ListNode(0, head)      #introduce a dummy node in the begining 0 -> ...
+  l = dummy
+  r = head
+  while r and n > 0:            #difference between l & r should be n-1
+    r = r.next
+    n -= 1
+  
+  while r:
+    l = l.next
+    r = r.next
+
+  l.next = l.next.next
+  return dummy.next
