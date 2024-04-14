@@ -2,7 +2,7 @@ def copyRandomList(self, head: ListNode()) -> ListNode():
   NewCopy = {None: None}
   cur = head
   while cur:                    #pass1 (cloning the LL)
-    copy = Node(cur.val)        #create deep copy of node
+    copy = ListNode(cur.val)        #create deep copy of node
     NewCopy[cur] = copy
     cur = cur.next
   
