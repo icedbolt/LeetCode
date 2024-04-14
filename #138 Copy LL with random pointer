@@ -1,0 +1,15 @@
+def copyRandomList(self, head: ListNode()) -> ListNode():
+  NewCopy = {None: None}
+  cur = head
+  while cur:                    #pass1 (cloning the LL)
+    copy = Node(cur.val)        #create deep copy of node
+    NewCopy[cur] = copy
+    cur = cur.next
+  
+  cur = head
+  while cur:                    #pass2
+    copy = NewCopy[cur]
+    copy.next = NewCopy[cur.next]
+    copy.random = NewCopy[cur.random]
+    cur = cur.next
+  return NewCopy[head]
