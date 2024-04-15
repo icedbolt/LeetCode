@@ -1,4 +1,7 @@
 def hasCycle(self, head: ListNode()) -> bool:
+
+  #O(n) - linear time complexity.
+
   slow, fast = head, head
   while fast and fast.next:
     slow = slow.next
