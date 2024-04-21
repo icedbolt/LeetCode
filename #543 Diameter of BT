@@ -1,0 +1,13 @@
+def diameterOfBT(self, root: TreeNode()) -> int:          #https://www.youtube.com/watch?v=bkxqA8Rfv04
+  res = [0]       #global variable 
+  
+  def dfs(root):  
+    if not root:
+      return -1
+    left = dfs(root.left)
+    right = dfs(root.right)
+    res[0] = max(res[0], left + right + 2)
+    return 1 + max(left, right)
+
+  dfs(root)
+  return res[0]
