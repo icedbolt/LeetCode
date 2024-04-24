@@ -1,0 +1,18 @@
+def isSubtree(self, s: TreeNode(), t: TreeNode()) -> bool:
+  if not t:   return True    #base case
+  if not s:  return False    #base case
+
+  if self.isSametree(s, t):
+    return True
+
+  return self.isSubtree(r.left, t) or self.isSubtree(r.right, t)
+
+
+
+def isSametree(self, s, t):
+  if not s and not t:
+    return True
+  if not s or not t or s.val != t.val:
+    return False
+  
+  return self.isSametree(s.left, t.left) and self.isSametree(s.right, t.right)
