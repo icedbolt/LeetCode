@@ -2,7 +2,7 @@ def levelOrder(self, root: TreeNode()) -> List[List[int]]:
   #BFS
   res = []
   q = collections.deque()    #initialize a queue
-  res.append(root)          #add the tree root
+  q.append(root)          #add the tree root to the queue
 
   while q:
     level = []
