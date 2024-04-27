@@ -1,0 +1,17 @@
+def rightView(self, root: TreeNode()) -> List[int]:
+  #BFS
+  res = []
+  q = collections.deque()
+  q.append(root)
+
+  while q:
+    rightSide = None
+    for i in range(len(q)):
+      node = q.popleft()         #1st in 1st out
+      if node:
+        rightSide = node
+        q.append(node.left)      #append left first
+        q.append(node.right)
+    if rightSide:
+      res.append(rightSide.val)
+  return res
