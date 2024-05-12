@@ -11,7 +11,7 @@ if not root:
   return 0
 
 #iterative DFS
-stack = [[root, depth]]
+stack = [[root, 1]]
 res = 1
 while stack:
   node, depth = stack.pop()
