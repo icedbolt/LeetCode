@@ -1,0 +1,25 @@
+class Solution:
+  def groupAnagrams(self, strs: List(str)) -> List[List[str]]:
+    res = defaultdict(list)    #create a default dict where each value is an empty list.
+
+    #O(nlogn) - time
+
+    for s in strs:
+      key = ''.join(sorted(strs))    #sort the string and use it as a key
+      res[key].append(s)             #append the original string s corresponding to it's key
+
+    return res.values()        #return the list of lists
+
+-----------------------------------------------------------------------------
+res = defaultdict(list)
+
+#O(1) - space
+
+for s in strs:
+  count = [0] * 26
+
+  for c in s:
+    count[ord(c) - ord('a')] += 1    #calculating the aski value
+  res[tuple(count)].append(s)
+
+  return res.values
