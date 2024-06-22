@@ -1,0 +1,20 @@
+class Solutions:
+  def niceSubarrays(self, nums: List[int], k: int) -> int:
+    #3 ptr sliding technique - https://www.youtube.com/watch?v=4zNK0rhFfcA ; do dry run
+    odd, res = 0, 0
+    l, r = 0, 0
+    for r in range(len(nums)):
+      if nums[r] % 2:
+        odd += 1
+
+      while odd > k:
+        if nums[l] % 2:
+          odd -= 1
+        l += 1
+        m = l
+
+      if odd == k:
+        while not nums[r] % 2:
+          m += 1
+        res = m - l + 1
+    return res
