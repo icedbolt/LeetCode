@@ -20,3 +20,6 @@ class Solution:
 '''The while loop checks if the current window size (r - l + 1) minus maxf is greater than k. 
   This condition determines if more than k characters need to be replaced to make the substring uniform.
   The left pointer l is then incremented to shrink the window size until the condition is false.'''
+
+'''Time Complexity: O(n), where n is the length of the string s.
+   Space Complexity: O(n) in the worst case, but typically O(1) if the number of distinct characters is bounded and small.'''
