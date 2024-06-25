@@ -1,0 +1,22 @@
+class Solution:
+  def charReplacement(self, s: str, k: int) -> int:
+
+    #Sliding window techique
+
+    count = {}
+    res, l = 0, 0
+    maxF = 0                #The maximum frequency of any character within the current window.
+    for r in range(len(s)):
+      count[s[r]] = count.get(s[r], 0) + 1
+      
+      maxF = max(maxF, count[s[r]])        #updates maxf to be the maximum frequency of any character in the current window.
+      while (r-l+1) - maxF) > k:
+        count[s[l]] -= 1
+        l += 1
+      res = max(res, r-l+1)
+    return res
+
+
+'''The while loop checks if the current window size (r - l + 1) minus maxf is greater than k. 
+  This condition determines if more than k characters need to be replaced to make the substring uniform.
+  The left pointer l is then incremented to shrink the window size until the condition is false.'''
