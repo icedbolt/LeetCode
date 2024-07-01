@@ -1,0 +1,18 @@
+class Solution:
+  def search2Dmatrix(self, matrix: List[List[int]], target: int) -> bool:
+    #Flatten the 2D matrix as 1D & apply binary search.
+    m = len(matrix)
+    n = len(matrix[0])      #len of column
+    l = 0                   #left boundary
+    h = m*n - 1             #right boundary, initialized to m*n - 1, representing the last element in the flattened matrix.
+    while l <= h:
+      mid = l + (h - l)//2
+      row = mid // n        #Determines the row index in the matrix corresponding to the mid index in the flattened matrix.
+      col = mid % n
+      if matrix[row][col] > target:
+        h = mid - 1
+      elif matrix[row][col] < target:
+        l = mid + 1
+      else:
+        return True
+    return False
