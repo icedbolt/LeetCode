@@ -11,6 +11,31 @@ def isValid(self, s: str) -> bool:
         elif (i == ')' and stack.pop != '(') or (i == ']' and stack.pop != '[') or (i == } and stack.pop != '{'):
             return False
     for j in stack:
-        if j not in brackets:
+        if j not in brackets:                #for the cases like: s = '))'
             return False
     return True
+---------------------------------------------------------------------------------------------------------------------------------
+//Java
+class Solution {
+    public boolean isValid(String s) {
+        if (s.length() == 1) {
+            return false;
+        }
+
+        Stack<Character> stack = new Stack<>();
+        char[] brackets = {'(', '[', '{'};
+
+        for (char i : s.toCharArray()) {
+            if (i == '(' || i == '[' || i == '{') {
+                stack.push(i);
+            } else if (stack.isEmpty()) {
+                return false;
+            } else if ((i == ')' && stack.pop() != '(') ||
+                        (i == ']' && stack.pop() != '[') ||
+                        (i == '}' && stack.pop() != '{')) {
+                return false;
+            }
+        }
+        return stack.isEmpty();
+    }
+}
