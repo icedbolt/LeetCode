@@ -13,3 +13,38 @@ def isAnagram(self, s: str, t: str) -> bool:
 
 -------or--------
     return sorted(s) == sorted(t)
+--------------------------------------------------------------------------------------------
+//Java
+char[] sArray = s.toCharArray();
+char[] tArray = t.toCharArray();
+
+Arrays.sort(sArray);
+Arrays.sort(tArray);
+
+return Arrays.equals(sArray, tArray);
+------------------------or-------------------------------
+//Java
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        } 
+
+        Map<Character, Integer> mapS = new HashMap<>();
+        Map<Character, Integer> mapT = new HashMap<>();
+
+        for (int i = 0; i < s.length(); i++) {
+            char charS = s.charAt(i);
+            char charT = t.charAt(i);
+            mapS.put(charS, mapS.getOrDefault(charS, 0) + 1);  
+            mapT.put(charT, mapT.getOrDefault(charT, 0) + 1);
+        }
+
+        for (char l : mapS.keySet()) {
+            if (!mapS.get(l).equals(mapT.getOrDefault(l, 0))) {
+                return false;
+            }
+        }
+        return true;
+    }
+}
