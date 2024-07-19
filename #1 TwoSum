@@ -6,3 +6,19 @@ def(self, nums: List[int], target: int) -> List[int]
     if diff in dict_nums:
       return [dict_nums[diff], i]
     dict_nums[n] = i
+--------------------------------------------------------------------------
+//Java
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+       Map<Integer, Integer> dictNum = new HashMap<>();
+
+       for (int i = 0; i < nums.length; i++) {
+        int diff = target - nums[i];
+        if (dictNum.containsKey(diff)) {
+            return new int[] {dictNum.get(diff), i};
+        }
+        dictNum.put(nums[i], i);
+       }
+       return new int[]{};
+    }
+}
