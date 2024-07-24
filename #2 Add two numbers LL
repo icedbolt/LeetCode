@@ -16,3 +16,41 @@ def addNums(self, l1: ListNode(), l2: ListNode()) -> ListNode():
     l1 = l1.next if l1 else None
     l2 = l2.next if l2 else None
   return dummy.next
+*******************************************************************************
+//Java
+class AddNums_linkedList {
+    public ListNode addNums(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode();
+        ListNode cur = dummy;
+        int carry = 0;
+
+        while (list1 != null || list2 != null || carry != 0) {
+            int v1 = (list1 != null) ? list1.val : 0;
+            int v2 = (list2 != null) ? list2.val : 0;
+
+            int val = v1 + v2 + carry;
+            carry = val / 10;
+            val = val % 10;
+            cur.next = new ListNode(val);
+
+            cur = cur.next;
+            list1 = (list1 != null) ? list1.next : null;
+            list2 = (list2 != null) ? list2.next : null;
+        }
+        return dummy.next;
+    }
+
+    public static void main(String[] args) {
+        ListNode list1 = new ListNode(2, new ListNode(4, new ListNode(3)));
+        ListNode list2 = new ListNode(5, new ListNode(6, new ListNode(4)));
+
+        AddNums_linkedList addNumsLinkedList = new AddNums_linkedList();
+        ListNode result = addNumsLinkedList.addNums(list1, list2);
+
+        //print result
+        while (result != null) {
+            System.out.print(result.val + " ");
+            result = result.next;
+        }
+    }
+}
