@@ -1,0 +1,27 @@
+#Amazon
+class Solution:
+  def reorganizeStr(self, str: s) -> str:
+    count = Counter(s)    #create a hashmap with key as character & its frequency as a value
+    maxHeap = [[-cnt, char] for char, cnt in count.items()]    #Python doesn't support min heap, setting the count with -ve value
+    heapq.heapify(maxHeap)    #transform the data (array) to max heap structure
+
+    prev = None
+    res = ""
+
+    while maxHeap or prev:
+      if prev and not maxHeap:
+        return ""
+      cnt, char = heapq.heappop(maxHeap)
+      res += char
+      cnt += 1
+
+      if prev:
+        heapq.heappush(maxHeap, prev)
+        prev = None
+
+      if cnt != 0:      #if count of current element is not 0
+        prev = [cnt, char]
+
+    return res
+----------------------------------------------------------------------------------------------------------------------------
+//Java
