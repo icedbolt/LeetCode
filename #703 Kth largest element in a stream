@@ -44,5 +44,28 @@ class KthLargest {
         return minHeap.peek();      //The Kth largest element is at the root of the min heap
     }
 }
+-------------------------------------------------OR-----------------------------------------------------------------------------------------
+//Java -> O(log n)
+class KthLargest {
 
+    PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+    int k;
 
+    public KthLargest(int k, int[] nums) {
+        this.k = k;
+
+        //Add all elements to minHeap, maintaining the size of the heap as k
+        for (int num : nums) {
+            add(num);
+            
+        }
+    }
+    
+    public int add(int val) {
+        minHeap.offer(val);
+        if (minHeap.size() > k) {
+            minHeap.poll();
+        }
+        return minHeap.peek();      //The Kth largest element is at the root of the min heap
+    }
+}
