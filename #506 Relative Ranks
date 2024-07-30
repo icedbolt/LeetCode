@@ -14,3 +14,29 @@ def relativeRank(self, scores: List[nums]) -> List[str]:
     for n in scores:
         res.append(map[n])
     return res
+------------------------------------------------------------------------------------------------------
+# Using Heap
+class Solution:
+    def findRelativeRanks(self, score: List[int]) -> List[str]:
+        heap = []
+        res = ['']*len(score)
+        pos = 0
+        
+        for i in range(len(score)):
+            heapq.heappush(heap, (-score[i], i))
+
+        while pos < len(score):
+            index = heapq.heappop(heap)[1]
+
+            if pos == 0:
+                res[index] == 'Gold Medal'
+            elif pos == 1:
+                res[index] == 'Silver Medal'
+            elif pos == 2:
+                res[index] == 'Bronze Medal'
+            else:
+                res[index] = str(pos + 1)
+            pos += 1
+        return res
+-------------------------------------------------------------------------------------------------------------
+
