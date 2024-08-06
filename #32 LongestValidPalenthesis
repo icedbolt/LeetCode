@@ -1,0 +1,24 @@
+class Solution {
+  public int longestValidPalenthesis(String s) {
+    Stack<Integer> stack = new Stack<>();
+    maxLen = 0;
+    stack.push(-1);    # To cover the edge case when valid palenthesis starts from 1st index
+
+    for (int i = 0; i < s.length(); i++) {
+      if (s.charAt(i) == ')') {
+        stack.push(i);
+      }
+      else {
+        stack.pop();
+        if (stack == 0) {
+          stack.push(i);      # This helps to mark the position where the next valid substring could potentially start.
+        }
+        else {
+          maxLen = Maths.max(maxLen, i - stack.peek());
+        }
+      }
+    }
+
+    return maxLen;
+  }
+}
