@@ -1,0 +1,16 @@
+def sortStr(self, s: str) -> str:
+  res = ""
+  c = Counter(s)
+  kc = sorted(c.keys())
+  while len(res) < len(s):
+    for i in kc:            # Pick smallest
+      if c[i] > 0:
+        res += i
+        c[i] -= 1
+
+    for i in kc[::-1]:      # Pick largest
+      if c[i] > 0:
+        res += i
+        c[i] -= 1
+
+  return res
