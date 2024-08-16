@@ -1,0 +1,23 @@
+def findPattern(self, words: List[str], pattern: str) -> List[str]:
+  
+  # Will map pattern "aab" -> 122 & check which word has the same pattern as 122 - using helper function
+
+  def get_pattern(p):
+    map = {}
+    res = []
+    i = 0
+    for c in p:
+      if c in map:
+        res.append(map[c])
+      else:
+        map[c] = i
+        i += 1
+        res.append(i)
+    return res
+
+  p = get_pattern(pattern)
+  res = []
+  for word in words:
+    if get_pattern(word) == p:
+      res.append(word)
+  return res
