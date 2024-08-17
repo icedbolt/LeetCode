@@ -1,0 +1,16 @@
+def sortByFreq(self, s: str) -> str:
+
+  # Using a max heap to store ch & frequency of that ch & sort according to the freq.
+
+  freq = Counter(s)
+  res = ""
+  pq = [(-f, c) for c, f in freq.items()]
+  heapq.heapify(pq)
+
+  while pq:
+    c, f = heapq.heappop(pq)
+    while f != 0:
+      res += c
+      f += 1
+
+  return res
