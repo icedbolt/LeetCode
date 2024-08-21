@@ -9,3 +9,9 @@ class Solution:
       count += piles[i]
 
     return count
+
+        "Visual Example:"
+        "Sorted piles: [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+        "Your friend picks 9, you pick 8, the remaining person picks 1."
+        "Next round: Your friend picks 7, you pick 6, the remaining person picks 2."
+        "Continue this until all piles are picked."
