@@ -1,0 +1,25 @@
+def maxVowels(self, s: str, k: int) -> int:
+  cnt, res = 0, 0
+  vowels = ['a','e','i','o','u'] 
+  for i in range(len(s) - k + 1):
+    for ch in s[i:i+k]:
+      if ch in vowels:
+        cnt += 1
+      res = max(res, cnt)
+      cnt = 0
+  return res
+---------------------------------------------------------------------------
+# Sliding window
+def maxVowels(self, s: str, k: int) -> int:
+        l, cnt, res = 0, 0, 0
+        vowels = ['a', 'e', 'i', 'o', 'u']
+
+        for r in range(len(s)):
+            if s[r] in vowels:
+                cnt += 1
+            if r - l + 1 > k:       # Check the size of the current window
+                if s[l] in vowels:
+                    cnt -= 1        # Decrement the count if s[l] was in vowels as we're shifting the window.
+                l += 1
+            res = max(cnt, res)
+        return res
