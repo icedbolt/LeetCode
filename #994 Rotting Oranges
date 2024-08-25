@@ -1,0 +1,111 @@
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        # Using BFS (PYTHON)
+        q = deque() # Store rotten oranges coordinates.
+        time, fresh = 0, 0
+
+        Row, Col = len(grid), len(grid[0])
+        for r in range(Row):
+            for c in range(Col):
+                if grid[r][c] == 1:
+                    fresh += 1
+                if grid[r][c] == 2:
+                    q.append([r, c])
+        
+        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        while q and fresh > 0:
+            for i in range(len(q)):
+                r, c = q.popleft()
+                for dr, dc in directions:
+                    row, col = dr + r, dc + c
+                    # If in bound and fresh, make it rotten.
+                    if (row < 0 or row == len(grid) or
+                        col < 0 or col == len(grid[0]) or 
+                        grid[row][col] != 1):
+                        continue    # Continue to the next iteratio of the loop.
+
+                    grid[row][col] = 2  # Make that inbound orange rotten. 
+                    q.append([row, col])    # Also, add that position to the q.
+                    fresh -= 1
+            time += 1
+        return time if fresh == 0 else -1
+----------------------------------------------------------------------------------------------------------------------
+# DFS (PYTHON)
+class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        stack = [] # Store rotten oranges coordinates.
+        time = 0
+
+        for r in range(len(grid)):
+            for c in range(len(grid[0])):
+                if grid[r][c] == 2:
+                    stack.append([r, c])
+        
+        #directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        while stack:
+            l, rotten = len(stack), False
+            for i in range(l):
+                r, c = stack.pop(0)
+                for r1, c1 in [[r-1, c], [r, c-1], [r+1, c], [r, c+1]]:
+                    if r1<0 or r1>=len(grid) or c1<0 or c1>=len(grid[0]) or grid[r1][c1] != 1:
+                        continue
+                    rotten = True
+                    grid[r1][c1] = 2
+                    stack.append([r1, c1])
+            if rotten:
+                time += 1
+        for row in grid:
+            if 1 in row:
+                return -1
+        return time
+----------------------------------------------------------------------------------------------------------------------------------------
+// DFS - JAVA
+class Solution {
+    public int orangesRotting(int[][] grid) {
+        int time = 0;
+        List<int[]> stack = new ArrayList<>();
+
+        for (int r = 0; r < grid.length; r++) {
+            for (int c = 0; c < grid[0].length; c++) {
+                if (grid[r][c] == 2) {
+                    stack.add(new int[]{r, c});
+                }
+            }
+        }
+        int[][] directions = {{-1,0}, {1,0}, {0,-1}, {0,1}};
+
+        while (!stack.isEmpty()) {
+            int l = stack.size();
+            boolean rotten = false;
+            for (int i = 0; i < l; i++) {
+                int[] position = stack.remove(0);
+                int r = position[0];
+                int c = position[1];
+
+                for (int[] dir: directions) {
+                    int r1 = r + dir[0];
+                    int c1 = c + dir[1];
+
+                    if (r1 < 0 || r1 >= grid.length || c1 < 0 || c1 >= grid[0].length || grid[r1][c1] != 1) {
+                        continue;
+                    }
+                    rotten = true;
+                    grid[r1][c1] = 2;
+                    stack.add(new int[]{r1, c1});
+                }
+            }
+            if (rotten) {
+                time++;
+            }
+        }
+        // Check if there are any fresh oranges left
+        for (int[] row: grid) {
+            for (int cell: row) {
+                if (cell == 1) {
+                    return -1;
+                }
+            }
+        }
+        return time;
+    }
+}
