@@ -1,0 +1,21 @@
+// Java
+
+class Solution {
+    public int sumNumbers(TreeNode root) {
+        return dfs(root, 0);
+    }
+
+    private int dfs(TreeNode cur, int num) {
+        if (cur == null) {
+            return 0;
+        }
+        num = num * 10 + cur.val;
+
+        // If the current node is a leaf node
+        if (cur.left == null && cur.right == null) {
+            return num;
+        }
+        // Recursively calculate sum for left & right subtrees
+        return dfs(cur.left, num) + dfs(cur.right, num);
+    }
+}
