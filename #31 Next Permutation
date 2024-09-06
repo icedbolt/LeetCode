@@ -9,7 +9,7 @@ def nextPermutation(self, nums: List[int]) -> none:
     nums = nums.reverse()
     return
 
-  for i in range(len(nums)-1, ind, -1):      #Swap at the break point
+  for i in range(len(nums)-1, ind, -1):      #Swap at the break point with next greater element.
     if nums[i] > nums[ind]:
       nums[i], nums[ind] = nums[ind], nums[i]
       break
