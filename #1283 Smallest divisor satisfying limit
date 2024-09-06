@@ -1,0 +1,21 @@
+# Binary Search
+
+class Solution:
+    def smallestDivisor(self, nums: List[int], threshold: int) -> int:
+        l = 1
+        h = max(nums)
+
+        def findSum(d):
+            sum = 0
+            for n in nums:
+                sum += math.ceil(n/d)
+            return sum
+
+        while l < h:
+            mid = l + (h-l)//2
+
+            if findSum(mid) > threshold:
+                l = mid + 1
+            else:
+                h = mid
+        return l
