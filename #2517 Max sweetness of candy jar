@@ -1,0 +1,33 @@
+// Java: T = O(n log n)
+
+class Solution {
+    public int maximumTastiness(int[] price, int k) {
+        Arrays.sort(price);
+        int n = price.length;
+        int l = 0, r = price[n-1], ans = 0;
+        while (l <= r) {
+            int mid = l + (r-l)/2;
+            if (ifPossibleWithMinDiff(price, k, mid)) {      // Check if mid is feasible
+                ans = mid;
+                l = mid + 1;            // Check if mid is feasible
+            } else {
+                r = mid - 1;            // Otherwise, try smaller values of minimum difference
+            }
+        }
+        return ans;
+    }
+
+    public boolean ifPossibleWithMinDiff(int[] p, int k, int mid) {
+        int j = 0, cnt = 1;
+        for (int i = 1; i < p.length; i++) {
+            if (p[i] - p[j] >= mid) {           // Check if the sweetness difference is at least mid
+                cnt++;                          // Create a new group
+                j = i;                          // Move the start of the next group to the current element
+            }
+            if (cnt == k) {
+                return true;            // If we have k groups, return true
+            }
+        }
+        return false;
+    }
+}
