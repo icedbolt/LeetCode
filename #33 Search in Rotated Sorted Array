@@ -1,0 +1,45 @@
+// Java: T - O(log n)
+
+class Solution {
+    public int search(int[] nums, int target) {
+        int n = nums.length;
+        int pivot = findPivot(nums, 0, n-1);
+
+        if (nums[0] <= nums[n-1]) {
+            int res = Arrays.binarySearch(nums, 0, n, target);
+            if (res >= 0) {
+                return res;
+            } else {
+                return -1;
+            }
+        }
+
+        if (nums[pivot] == target) {
+            return pivot;
+        }
+
+        if (nums[0] <= target) {
+            int res = Arrays.binarySearch(nums, 0, pivot, target);
+            return res >= 0 ? res : -1;
+        } else {
+            int res = Arrays.binarySearch(nums, pivot + 1, n, target);
+            return res >= 0 ? res : -1;
+        }
+    }
+
+    public int findPivot(int[] nums, int l, int r) {
+        while (l < r) {
+            if (nums[l] < nums[r]) {
+                return l;
+            } else {
+                int mid = l + (r-l)/2;
+                if (nums[mid] > nums[r]) {
+                    l = mid + 1;
+                } else {
+                    r = mid;
+                }
+            }
+        }
+        return l;
+    }
+}
