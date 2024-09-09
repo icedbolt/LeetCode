@@ -9,3 +9,23 @@ def lengthOfLongestSubstring(self, s: str) -> int:
         charSet.add(s[r])
         ans = max(ans,  r - l + 1)
     return ans
+---------------------------------------------------------------------
+S = O(1)  T = O(N)
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        if len(s) == 0 or len(s) == 1:
+            return len(s)
+        
+        maxLen = 0
+        f = [0] * 256
+        l, r = 0, 0
+        while r < len(s):
+            if f[ord(s[r])]:
+                while f[ord(s[r])]:
+                    f[ord(s[l])] = False
+                    l += 1
+            f[ord(s[r])] = True
+            maxLen = max(maxLen, r-l+1)
+            r += 1
+        return maxLen
