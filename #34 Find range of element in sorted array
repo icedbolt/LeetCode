@@ -1,0 +1,28 @@
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        # Modify Binary Search
+        l = 0
+        h = len(nums) - 1
+        first_indx, last_indx = -1, -1
+        while l <= h:
+            mid = l + (h - l)//2
+            if nums[mid] == target:
+                first_indx = mid
+                h = mid - 1
+            elif nums[mid] > target:
+                h = mid - 1
+            else:
+                l = mid + 1
+        
+        l = 0
+        h = len(nums) - 1
+        while l <= h:
+            mid = l + (h - l)//2
+            if nums[mid] == target:
+                last_indx = mid
+                l = mid + 1
+            elif nums[mid] > target:
+                h = mid - 1
+            else:
+                l = mid + 1
+        return [first_indx, last_indx]
