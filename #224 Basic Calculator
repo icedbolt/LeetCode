@@ -1,0 +1,28 @@
+class Solution:
+    def calculate(self, s: str) -> int:
+        sign = 1
+        stack = [sign]
+        ans = 0
+        num = 0
+        
+        for c in s:
+            if c.isdigit():
+                num = num * 10 + int(c)
+            elif c == '(':
+                stack.append(sign)
+            elif c == ')':
+                stack.pop()
+            elif c == '+' or c == '-':
+                ans += sign * num
+                sign = (1 if c == '+' else -1) * stack[-1]
+                num = 0
+        return ans + sign * num
+
+"""
+The algorithm then iterates through each character c in the string s and does the following:
+
+If c is a digit, it appends it to num.
+If c is a left parenthesis (, it appends the current sign to the stack and sets sign to 1 (since the current environment is positive).
+If c is a right parenthesis ), it pops the last sign from the stack and sets sign to it.
+If c is a plus + or minus -, it updates the ans by adding the current sign * num to it, updates the sign to 1 or -1 depending on the current operator, and sets num to 0.
+"""
