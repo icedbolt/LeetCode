@@ -5,7 +5,7 @@ class Solution:
     #O(nlogn) - time
 
     for s in strs:
-      key = ''.join(sorted(strs))    #sort the string and use it as a key
+      key = ''.join(sorted(s))    #sort the string and use it as a key
       res[key].append(s)             #append the original string s corresponding to it's key
 
     return res.values()        #return the list of lists
