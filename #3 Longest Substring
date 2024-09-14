@@ -29,3 +29,27 @@ class Solution:
             maxLen = max(maxLen, r-l+1)
             r += 1
         return maxLen
+-----------------------------------------------------------------------------
+// Java - Using sliding window & dynamic frequency array
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if (s.length() == 0 || s.length() == 1) {
+            return s.length();
+        }
+        int res = 0;
+        boolean[] f = new boolean[256];
+        int l = 0, r = 0;
+        while (r < s.length()) {
+            if (f[s.charAt(r)]) {
+                while (f[s.charAt(r)]) {
+                    f[s.charAt(l)] = false;        // Mark unvisited
+                    l++;
+                }
+            }
+            f[s.charAt(r)] = true;
+            res = Math.max(res, r-l+1);
+            r++;
+        }
+        return res;
+    }
+}
