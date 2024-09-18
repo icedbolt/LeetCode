@@ -2,14 +2,14 @@
 class Solution {
     public int subarraySum(int[] nums, int k) {
         int res = 0, curSum = 0;
-        HashMap<Integer, Integer> prefixSum = new HashMap<>();
+        HashMap<Integer, Integer> prefixSum = new HashMap<>();        // The key is the sum, and the value is how many times this sum has occurred.
         prefixSum.put(0, 1);
 
         for (int n : nums) {
             curSum += n;
             int diff = curSum - k;
-            res += prefixSum.getOrDefault(diff, 0);
-            prefixSum.put(curSum, prefixSum.getOrDefault(curSum, 0) + 1);
+            res += prefixSum.getOrDefault(diff, 0);        // Incremented by the count of times diff has been seen because each occurrence of diff.
+            prefixSum.put(curSum, prefixSum.getOrDefault(curSum, 0) + 1);        // prefixSum is updated to record the current cumulative sum.
         }
         return res;
     }
