@@ -1,0 +1,76 @@
+# Brute Force
+class Solution:
+    def findTheLongestSubstring(self, s: str) -> int:
+        vowel = set('aeiou')
+        res = 0
+
+        for i in range(len(s)):
+            mp = {}
+            for j in range(i, len(s)):
+                mp[s[j]] = mp.get(s[j], 0) + 1
+
+                chk = True
+                for c in vowel:
+                    if mp.get(c, 0) % 2 != 0:
+                        chk = False
+                        break
+                
+                if chk:
+                    res = max(res, j - i + 1)
+        return res
+----------------------------------------------------------------------------------------------
+# Using Bitmask: T = O(n)
+  def findTheLongestSubstring(self, s: str) -> int:
+      vowel = {
+          "a": 1,
+          "e": 2,
+          "i": 4,
+          "o": 8,
+          "u": 16
+      }
+
+      res = 0
+      mask = 0
+      mask_idx = [-1] * 32    # Initial state with no vowels seen
+      for i, c in enumerate(s):
+          mask = mask ^ vowel.get(c, 0)
+          if mask_idx[mask] != -1 or mask == 0:
+              length = i - mask_idx[mask]
+              res = max(res, length)
+          else:
+              mask_idx[mask] = i
+      return res
+------------------------------------------------------------------------------------------------
+# Bitmask Java
+ public int findTheLongestSubstring(String s) {
+        // Create a map for vowels and their respective bit masks
+        HashMap<Character, Integer> vowel = new HashMap<>();
+        vowel.put('a', 1);
+        vowel.put('e', 2);
+        vowel.put('i', 4);
+        vowel.put('o', 8);
+        vowel.put('u', 16);
+
+        int res = 0;
+        int mask = 0;
+        int[] mask_idx = new int[32];
+        for (int i = 0; i < 32; i++) {
+            mask_idx[i] = -1;
+        }
+        mask_idx[0] = 0; // Initialize mask_idx[0] to handle the case where vowel is at the beginning
+
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            // Update the mask by XORing with the vowel bit mask
+            mask ^= vowel.getOrDefault(c, 0);
+
+            if (mask_idx[mask] != -1) {
+                int length = i + 1 - mask_idx[mask];
+                res = Math.max(res, length);
+            } else {
+                mask_idx[mask] = i + 1;  // Store the current index
+            }
+        }
+
+        return res;
+    }
