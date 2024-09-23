@@ -22,11 +22,11 @@ class Solution:
 # Using Bitmask: T = O(n)
   def findTheLongestSubstring(self, s: str) -> int:
       vowel = {
-          "a": 1,
-          "e": 2,
-          "i": 4,
-          "o": 8,
-          "u": 16
+          "a": 1,      # 00001
+          "e": 2,      # 00010
+          "i": 4,      # 00100
+          "o": 8,      # 01000
+          "u": 16      # 10000
       }
 
       res = 0
