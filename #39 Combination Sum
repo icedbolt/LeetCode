@@ -1,0 +1,22 @@
+def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        ans = []
+        curList = []
+        
+        def find_combinations(idx, target, arr):
+            # Base Case
+            if idx == len(arr):
+                return
+            if target == 0:
+                ans.append(curList[:])
+                return
+
+            # Pick
+            if arr[idx] <= target:
+                curList.append(arr[idx])
+                find_combinations(idx, target-arr[idx], arr)
+                curList.pop()
+            
+            # Not Pick
+            find_combinations(idx+1, target, arr)
+        find_combinations(0, target, candidates)
+        return ans
