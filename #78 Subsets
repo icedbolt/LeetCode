@@ -20,3 +20,27 @@ def subsets(self, nums: List[int]) -> List[List[int]]:
     
     helper(0, nums, ans, [])
     return ans
+-----------------------------------------------------------------------------------------------
+# Backtracking
+def subsets(self, nums: List[int]) -> List[List[int]]:
+    ans = []
+    
+    def helper(idx, arr, ans, current_subset):
+        n = len(arr)
+        # Base Case
+        if idx == n:
+            ans.append(current_subset[:])
+            return
+        
+        # Pick the element
+        current_subset.append(arr[idx])
+        helper(idx + 1, arr, ans, current_subset)
+    
+        # Backtrack (remove the last element to explore other subsets)
+        current_subset.pop()
+    
+        # Not pick
+        helper(idx + 1, arr, ans, current_subset)
+    
+    helper(0, nums, ans, [])
+    return ans
