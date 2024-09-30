@@ -1,0 +1,28 @@
+def wordBreak(self, s: str, wordDict: List[str]) -> List[str]:
+    memo = {}
+
+    def backtrack(s):
+      res = []
+      if len(s) == 0:     # If string is empty, return empty list.
+          return [""]
+
+      if s in memo:      # Return already computed result for this substring.
+          return memo[s]
+
+      # Iterate over each possible prefix of the string.
+      for i in range(1, len(s) + 1):
+          word = s[:i]
+          if word in wordDict:
+              # Recursively process the remaining part of the string
+              sub_sentence = backtrack(s[i:])
+              for sentence in sub_sentence:
+                  # Either add the word alone, or add the word + " " + next part
+                  if sentence == "":
+                      res.append(word)
+                  else:
+                      res.append(word + " " + sentence)
+
+        memo[s] = res
+        return res      # Store the result in memoization dictionary
+
+    return backtrack(s)
