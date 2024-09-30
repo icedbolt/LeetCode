@@ -1,0 +1,33 @@
+/* solve: This recursive function generates all possible permutations of the list a by swapping elements and then recursively calling itself. 
+   Once the index reaches the size of the list, it adds the current permutation to the result list.
+   Backtracking: After generating each permutation, the list is restored to its original state by swapping back the elements (backtracking). */
+
+   
+   public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        solve(nums, res, 0);
+        return res;
+    }
+
+    public void solve(int[] a, List<List<Integer>> res, int idx) {
+        if (idx == a.length) {
+            List<Integer> perm = new ArrayList<>();
+            for (int num : a) {
+                perm.add(num);
+            }
+            res.add(perm);
+            return;
+        }
+
+        for (int i = idx; i < a.length; i++) {
+            swap(a, idx, i);
+            solve(a, res, idx + 1);
+            swap(a, idx, i);
+        }
+    }
+
+    public void swap(int[] a, int i, int j) {
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
