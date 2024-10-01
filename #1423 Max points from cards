@@ -1,0 +1,17 @@
+# Using sliding window - calucate left sum (lSum), substract elements & add the same number of elements (rSum) from end. 
+
+def maxScore(self, cardPoints: List[int], k: int) -> int:
+    rSum, lSum = 0, 0
+    n = len(cardPoints)
+    for i in range(k):
+        lSum += cardPoints[i]
+    
+    maxSum = lSum
+    rIdx = n - 1
+    for i in range(k - 1, -1, -1):
+        lSum -= cardPoints[i]
+        rSum += cardPoints[rIdx]
+        rIdx -= 1
+        maxSum = max(maxSum, lSum + rSum)
+    
+    return maxSum
