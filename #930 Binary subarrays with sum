@@ -1,0 +1,17 @@
+# Using hashmap & prefix sum:
+
+def numSubarraysWithSum(self, nums: List[int], goal: int) -> int:
+    sum, count = 0, 0
+    prefixSum_count = {}
+    prefixSum_count[0] = 1
+
+    for n in nums:
+        sum += n
+
+        # Check if there is a prefix sum that when removed gives us the target sum
+        if sum - goal in prefixSum_count:
+            count += prefixSum_count[sum - goal]
+
+        prefixSum_count[sum] = prefixSum_count.get(sum, 0) + 1
+    return count
+-----------------------------------------------------------------------------------------
