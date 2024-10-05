@@ -1,0 +1,50 @@
+// Java
+public String removeKdigits(String num, int k) {
+    int l = num.length();
+    Stack<Character> stack = new Stack<>();
+    for (char n : num.toCharArray()) {
+        while (stack.size() > 0 && k > 0 && stack.peek() > n) {
+            stack.pop();
+            k--;
+        }
+        stack.push(n);
+    }
+
+    // If we still have digits to remove (k > 0), remove them from the end
+    while (k > 0) {
+        stack.pop();
+        k--;
+    }
+
+    // Build the resulting number string from the stack
+    StringBuilder res = new StringBuilder();
+    while (!stack.isEmpty()) {
+        res.append(stack.pop());
+    }
+
+    res.reverse();
+
+    // Remove leading zeros
+    while (res.length() > 1 && res.charAt(0) == '0') {
+        res.deleteCharAt(0);
+    }
+
+    return res.length() == 0 ? "0" : res.toString();
+    
+}
+-------------------------------------------------------------------------------------------
+# Python
+def removeKdigits(self, num: str, k: int) -> str:
+    l = len(num)
+    stack = []
+    for n in num:
+        while (len(stack) > 0 and k > 0 and stack[-1] > n):
+            stack.pop()
+            k -= 1
+        stack.append(n)
+
+    stack = stack[:-k] if k > 0 else stack
+
+    res = ''.join(stack).lstrip('0')
+
+    return res if res else '0'
