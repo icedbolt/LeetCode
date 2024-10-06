@@ -1,0 +1,20 @@
+# Backtracking
+
+def letterCasePermutation(self, s: str) -> List[str]:
+  res = []
+  self.solve(0, list(s), res)
+  return res
+
+def solve(self, i, s, res):
+  # Base condition
+  if i == len(s):
+      res.append(''.join(s))
+      return
+  
+  if s[i].isdigit():
+      self.solve(i + 1, s, res)
+  else:
+      s[i] = s[i].upper()
+      self.solve(i + 1, s, res)
+      s[i] = s[i].lower()
+      self.solve(i + 1, s, res)
