@@ -1,0 +1,26 @@
+// Java - Backtracking, T = O(n!)
+
+class Solution {
+    int count = 0;
+    public int countArrangement(int n) {
+        if (n == 0) return 0; 
+        checkArrangement(n, 1, new int[n + 1]);    // Using N + 1 avoids off-by-one errors and allows simple indexing directly from 1 to N.
+        return count;
+    }
+
+    private void checkArrangement(int n, int pos, int[] used) {
+        // Base case
+        if (pos > n) {
+            count++;
+            return;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            if (used[i] == 0 && (i % pos == 0 || pos % i == 0)) {
+                used[i] = 1;
+                checkArrangement(n, pos + 1, used);
+                used[i] = 0; // Backtracking
+            }
+        }
+    }
+}
