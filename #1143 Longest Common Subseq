@@ -1,0 +1,44 @@
+// Java
+public int longestCommonSubsequence(String text1, String text2) {
+    int n = text1.length(), m = text2.length();
+    int[][] dp = new int[n+1][m+1];
+
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= m; j++) {
+            if (text1.charAt(i-1) == text2.charAt(j-1)) {
+                dp[i][j] = 1 + dp[i-1][j-1];
+            } else {
+                dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+            }
+        }
+    }
+    return dp[n][m];
+}
+-------------------------------------------------------------------------------------------
+// Return longest common substring.
+String longestCommonSubstring(String str1, String str2) {
+  int n = str1.length(), m = str2.length();
+  int maxLen = 0, endIdx = 0;    //store the length of the longest common substring & the end index of the longest common substring
+  int[][] dp = new int[n+1][m+1];
+
+  for (int i = 1; i <= n; i++) {
+      for (int j = 1; j <= m; j++) {
+          if (str1.charAt(i-1) == str2.charAt(j-1)) {
+              dp[i][j] = 1 + dp[i-1][j-1];
+              if (dp[i][j] > maxLen) {
+                maxLen = dp[i][j];
+                endIdx = i;
+              }
+          } else {
+              dp[i][j] = 0;
+          }
+      }
+  }
+
+  // Return the longest common substring
+  if (maxLen == 0) {
+    return "";
+  } else {
+    return str1.substring(endIdx - maxLen, endIdx);
+  }
+}
