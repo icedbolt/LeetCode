@@ -1,0 +1,22 @@
+def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+    if not head:
+        return head
+    
+    # Get length of the linked list
+    len, tail = 1, head
+    while tail.next:
+        tail = tail.next
+        len += 1
+
+    k = k % len    # When k > len of LL
+    if k == 0:
+        return head
+
+    cur = head
+    for i in range(len - k - 1):
+        cur = cur.next
+
+    newHead = cur.next
+    cur.next = None
+    tail.next = head
+    return newHead
