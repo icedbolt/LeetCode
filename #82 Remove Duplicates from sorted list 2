@@ -1,0 +1,19 @@
+def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    dummy = ListNode(0, head)
+    cur = dummy
+
+    while head:
+      val = head.val
+      if head.next and head.next.val == val:
+
+          while head.next and head.val == val:
+            head = head.next
+          if head.val == val:
+            cur.next = None
+          else:
+            cur.next = head
+
+      else:
+        cur = cur.next
+        head = head.next
+    return dummy.next
