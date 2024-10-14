@@ -1,0 +1,4 @@
+# Replace the next node value to the given node then, delete the given node.
+
+node.val = node.next.val
+node.next = node.next.next
