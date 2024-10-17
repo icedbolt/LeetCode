@@ -1,0 +1,13 @@
+def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
+    res = []        # Store linked list data
+    stack = []      # Store the idx of data
+    cur = head
+    while cur:
+        res.append(cur.val)
+        cur = cur.next
+    ans = [0] * len(res)
+    for i in range(len(res)):
+        while stack and res[i] > res[stack[-1]]:        # Compare the values
+            ans[stack.pop()] = res[i]
+        stack.append(i)
+    return ans
