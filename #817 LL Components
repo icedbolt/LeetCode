@@ -1,0 +1,22 @@
+public int numComponents(ListNode head, int[] nums) {
+    ListNode cur = head;
+    Set<Integer> num = new HashSet<>();
+    for (int i : nums) {
+        num.add(i);
+    }
+
+    int cnt = 0;
+    boolean flag = false;      // To check on going streak
+
+    while (cur != null) {
+        if (num.contains(cur.val) && !flag) {
+            cnt++;
+            flag = true;
+        }
+        else if (!num.contains(cur.val) && flag) {
+            flag = false;
+        }
+        cur = cur.next;
+    }
+    return cnt;
+}
