@@ -1,0 +1,14 @@
+# Using 2 Pointer 
+def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:
+    dummy = ListNode(0, head)
+    cur = dummy
+    while cur:
+        temp = cur.next
+        sum = 0
+        while temp:
+            sum += temp.val
+            if sum == 0:
+                cur.next = temp.next
+            temp = temp.next
+        cur = cur.next
+    return dummy.next
