@@ -1,0 +1,39 @@
+public ListNode reverseKGroup(ListNode head, int k) {
+    if (head == null) {
+        return head;
+    }
+
+    int cnt = 0;
+    ListNode curr = head;
+    ListNode newHead = null;
+
+    while (curr != null && cnt < k) {
+        curr = curr.next;
+        cnt++;
+    }
+
+    if (cnt == k) {
+        // Reverse the first k nodes
+        ListNode newGrpHead = reverse(head, k);
+
+        head.next = reverseKGroup(curr, k);
+
+        newHead = newGrpHead; 
+    }
+
+    return newHead == null ? head : newHead;
+}
+
+private ListNode reverse(ListNode head, int k) {
+    ListNode prev = null;
+    ListNode cur = head;
+    int cnt = 0;
+    while (cur != null && cnt < k) {
+        ListNode temp = cur.next;
+        cur.next = prev;
+        prev = cur;
+        cur = temp;
+        cnt++;
+    }
+    return prev;
+}
