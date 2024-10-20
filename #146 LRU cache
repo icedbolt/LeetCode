@@ -1,0 +1,74 @@
+// Defining our own Node class.
+class Node {  
+    int key;
+    int value;
+    Node next;
+    Node prev;
+
+    Node(int k, int v) {
+        key = k;
+        value = v;
+        next = null;
+        prev = null;
+    }
+}
+
+class LRUCache {
+    private int capacity;
+    private HashMap<Integer, Node> mp;
+    private Node head;
+    private Node tail;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        mp = new HashMap<>();
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head.next = tail;
+        tail.prev = head;
+    }
+    
+    public int get(int key) {
+        if (!mp.containsKey(key)) {
+            return -1;
+        }
+        Node node = mp.get(key);
+        remove(node);
+        add(node);
+        return node.value;
+    }
+    
+    public void put(int key, int value) {
+        if (mp.containsKey(key)) {
+            Node node = mp.get(key);
+            remove(node); // Remove the old node
+        }
+        Node node = new Node(key, value);
+        mp.put(key, node);
+        add(node);
+
+        // If cache exceeds capacity, remove the least recently used node
+        if (mp.size() > capacity) {
+            Node temp = tail.prev;
+            remove(temp);
+            mp.remove(temp.key);
+        }
+    }
+
+    // Function to add a node to the front of the doubly linked list
+    private void add(Node node) {
+        Node temp = head.next;
+        head.next = node;
+        node.prev = head;
+        node.next = temp;
+        temp.prev = node;
+    }
+
+    // Function to remove a node from the doubly linked list
+    private void remove(Node node) {
+        Node prevNode = node.prev;
+        Node nextNode = node.next;
+        prevNode.next = nextNode;
+        nextNode.prev = prevNode;
+    }
+}
