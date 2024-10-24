@@ -1,0 +1,22 @@
+# Using two pointer
+# [1,4,3,7,4,5]  k = 3
+         |
+       l, r : both pointers at k initially.
+
+def maximumScore(self, nums: List[int], k: int) -> int:
+    l = r = k
+    res = nums[k]
+    min_val = nums[k]
+
+    while l > 0 or r < len(nums) - 1:
+        left = nums[l - 1] if l > 0 else 0
+        right = nums[r + 1] if r < len(nums) - 1 else 0
+        if left > right:
+            l -= 1
+            min_val = min(min_val, left)
+        else:
+            r += 1
+            min_val = min(min_val, right)
+        
+        res = max(res, min_val * (r - l + 1))
+    return res
