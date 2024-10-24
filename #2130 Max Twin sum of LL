@@ -1,0 +1,20 @@
+# Using two pointers
+
+def pairSum(self, head: Optional[ListNode]) -> int:
+    stack = []
+    sum, maxSum, l = 0, 0, 0
+    cur = head
+    while cur:
+        stack.append(cur.val)
+        cur = cur.next
+        l += 1
+    cur = head
+    i = 0
+    #print(l)
+    while i < (l//2):
+        sum = cur.val + stack.pop()
+        maxSum = max(maxSum, sum)
+        cur = cur.next
+        #print(maxSum)
+        i += 1
+    return maxSum
