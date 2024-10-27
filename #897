@@ -1,0 +1,13 @@
+class Solution {
+    public TreeNode increasingBST(TreeNode root) {
+        return solution(root, null);
+    }
+
+    public TreeNode solution(TreeNode root, TreeNode tail) {
+        if (root == null) return tail;
+        TreeNode res = solution(root.left, root);
+        root.left = null;
+        root.right = solution(root.right, tail);
+        return res;
+    }
+}
