@@ -1,0 +1,40 @@
+// Java using max heap
+class Solution {
+    public int minSetSize(int[] a) {
+        Map<Integer, Integer> mp = new HashMap<>();
+        for (int num : a) {
+            mp.put(num, mp.getOrDefault(num, 0) + 1);
+        }
+
+        PriorityQueue<Integer> q = new PriorityQueue<>(Collections.reverseOrder());
+        for (int value : mp.values()) {
+            q.add(value);
+        }
+
+        int res = 0, size = a.length, half_size = size / 2;
+        
+        while (size > half_size && !q.isEmpty()) {
+            size -= q.poll();
+            res++;
+        }
+        
+        return res;
+    }
+}
+----------------------------------------------------------------------------------------------
+# Python using min heap
+class Solution:
+    def minSetSize(self, arr: List[int]) -> int:
+        mp = Counter(arr)
+        q = []
+
+        for v in mp.values():
+            heapq.heappush(q, -v)       # storing -ve values to make it max heap
+
+        res = 0
+        size = len(arr)
+        half_size = size // 2
+        while size > half_size and q:
+            size += heapq.heappop(q)
+            res += 1
+        return res
