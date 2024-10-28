@@ -1,0 +1,24 @@
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        // custom comparator makes the queue act like a max heap with respect to the distance from the origin. This means the point with the largest distance will be at the top of the queue.
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> Double.compare(distance(b), distance(a)));
+        int[][] res = new int[k][2];
+
+        for (int[] point : points) {
+            pq.offer(point);        // Each point is added to the priority queue.
+            if (pq.size() > k) {
+                pq.poll();          // if the size of the priority queue exceeds k, the point which is farthest from the origin is removed.
+            }
+        }
+        
+        for(int i = 0; i < k; i++) {
+            res[i] = pq.poll();
+        }
+
+        return res;
+    }
+
+    private double distance(int[] point) {
+        return Math.sqrt(point[0] * point[0] + point[1] * point[1]);      // Calculate distance of the point from origin.
+    }
+}
