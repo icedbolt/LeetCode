@@ -1,0 +1,27 @@
+class Solution {
+    public int maxResult(int[] nums, int k) {
+        Deque<Integer> deq= new ArrayDeque<>();
+        deq.add(0);
+        int n = nums.length;
+
+        for (int i = 1; i < n; i++) {
+            // Remove indices out of the window range
+            while (!deq.isEmpty() && deq.peekFirst() < i - k) {
+                deq.pollFirst();
+            } 
+
+            // Update the current index value with the max reachable score
+            nums[i] += nums[deq.peekFirst()];
+
+            // Maintain the deque to keep max elements in decreasing order
+            while (!deq.isEmpty() && nums[i] >= nums[deq.peekLast()]) {
+                deq.pollLast();
+            }
+
+            // Add the current index to the deque
+            deq.addLast(i);
+        }
+
+        return nums[n - 1];
+    }
+}
