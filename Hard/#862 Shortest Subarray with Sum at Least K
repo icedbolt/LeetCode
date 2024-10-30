@@ -1,0 +1,22 @@
+// Using prefix sum & deque.
+class Solution {
+    public int shortestSubarray(int[] nums, int k) {
+        int n = nums.length, res = n + 1;
+        long[] prefix_sum = new long[n + 1];
+
+        for (int i = 0; i < n; i++) {
+            prefix_sum[i+1] = prefix_sum[i] + nums[i];
+        }
+        Deque<Integer> dq = new ArrayDeque<>();
+        for (int i = 0; i < n+1; i++) {
+            while (dq.size() > 0 && prefix_sum[i] - prefix_sum[dq.getFirst()] >= k) {
+                res = Math.min(res, i - dq.pollFirst());
+            }
+            while (dq.size() > 0 && prefix_sum[i] <= prefix_sum[dq.getLast()]) {
+                dq.pollLast();
+            }
+            dq.addLast(i);
+        }
+        return res <= n ? res : -1;
+    }
+}
