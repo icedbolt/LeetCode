@@ -4,7 +4,7 @@ class Solution {
         Arrays.sort(deck);
         int n = deck.length;
         int[] res = new int[n];
-        Deque<Integer> q = new ArrayDeque<>();
+        Deque<Integer> q = new ArrayDeque<>();        // Store the index in queue
 
         for (int i = 0; i < n; i++) {
             q.add(i);
@@ -13,7 +13,7 @@ class Solution {
             int idx = q.poll();
             res[idx] = num;
             if (!q.isEmpty()) {
-                q.add(q.poll());
+                q.add(q.poll());            // poll the number & insert it at the end as per the requirement
             }
         }
         return res;
