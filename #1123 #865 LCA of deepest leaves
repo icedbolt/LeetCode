@@ -1,0 +1,40 @@
+# Python
+class Solution:
+  def subtreeWithAllDeepest(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+
+      return self.deep(root)[1]
+
+  def deep(self, root):
+      if not root:
+          return 0, None
+      l, r = self.deep(root.left), self.deep(root.right)
+      if l[0] > r[0]:
+          return l[0] + 1, l[1]
+      elif l[0] < r[0]:
+          return r[0] + 1, r[1]
+      else:
+          return l[0] + 1, root
+--------------------------------------------------------------------------------------------------
+// Java
+class Solution {
+    public TreeNode lcaDeepestLeaves(TreeNode root) {
+        return deep(root).getValue();
+    }
+
+    public Pair<Integer,TreeNode> deep(TreeNode root) {
+        if (root == null) {
+            return new Pair(0, null);
+        }
+
+        Pair<Integer, TreeNode> l = deep(root.left), r = deep(root.right);
+        int d1 = l.getKey(), d2 = r.getKey();
+        if (d1 > d2) {
+            return new Pair(d1 + 1, l.getValue()); 
+        } else if (d1 < d2) {
+            return new Pair(d2 + 1, r.getValue());
+        } else {
+            return new Pair(d1 + 1, root);
+        }
+
+    }
+}
