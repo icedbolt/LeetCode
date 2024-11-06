@@ -1,0 +1,22 @@
+class Solution:
+    def numSplits(self, s: str) -> int:
+        # Create a dictionary to store character frequencies in the entire string
+        mp = {}
+        for c in s:
+            mp[c] = mp.get(c, 0) + 1
+
+        ans = 0
+        left_unique = set()      # To track unique characters in the left part
+
+        for c in s:
+            # Decrement the count of the current character in the right part
+            if c in mp and mp[c] > 0:
+                mp[c] -= 1
+                if mp[c] == 0:
+                    del mp[c]
+                
+                left_unique.add(c)            # Add character to the left part set
+                
+                if len(left_unique) == len(mp):      # Check if the number of unique characters in left and right parts is the same
+                    ans += 1
+        return ans
