@@ -1,0 +1,18 @@
+// Java - Using reverse Inorder traversal.
+class Solution {
+    int sum = 0;
+    public TreeNode bstToGst(TreeNode root) {
+        reverseInorderTraversal(root);
+        return root;
+    }
+
+    private void reverseInorderTraversal(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        reverseInorderTraversal(root.right);
+        sum += root.val;
+        root.val = sum;
+        reverseInorderTraversal(root.left);
+    }
+}
