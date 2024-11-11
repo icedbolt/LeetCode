@@ -1,0 +1,28 @@
+class Solution {
+    public TreeNode balanceBST(TreeNode root) {
+        List<Integer> sortednums = new ArrayList<>();
+        Inorder(root, sortednums);      // Get the sorted list by inorder traversal.
+        return bst(sortednums, 0, sortednums.size() - 1);
+    }
+
+    private void Inorder(TreeNode root, List<Integer> sortednums) {
+        if (root == null) {
+            return;
+        }
+        Inorder(root.left, sortednums);
+        sortednums.add(root.val);
+        Inorder(root.right, sortednums);
+    }
+
+    // Construct Balance BST with mid value of sorted list as root.
+    private TreeNode bst(List<Integer> nums, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+        int mid = start + (end - start) / 2;
+        TreeNode root = new TreeNode(nums.get(mid));
+        root.left = bst(nums, start, mid - 1);
+        root.right = bst(nums, mid + 1, end);
+        return root;
+    }
+}
