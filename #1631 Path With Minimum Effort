@@ -1,0 +1,21 @@
+# Using minHeap
+def minimumEffortPath(self, heights: List[List[int]]) -> int:
+    row, col = len(heights), len(heights[0])
+    min_heap = [[0, 0, 0]]   # [diff, r, c]
+    visit = set()
+    dir = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+
+    while min_heap:
+      diff, r, c = heapq.heappop(min_heap)
+
+        if (r, c) not in visit:
+          visit.add((r, c))
+          if (r, c) == (row - 1, col - 1):
+              return diff
+          
+          for dr, dc in dir:
+              newR, newC = r + dr, c + dc
+              if (newR < 0 or newC < 0 or newR == row or newC == col or (newR, newC) in visit):
+                  continue
+              newDiff = max(diff, abs(heights[r][c] - heights[newR][newC]))
+              heapq.heappush(min_heap, [newDiff, newR, newC])
