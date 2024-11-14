@@ -1,0 +1,23 @@
+class Solution:
+    def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+        # Convert the input to adj list.
+        adj_list = defaultdict(list)
+
+        for u, v, w in times:
+            adj_list[u].append((v, w))
+
+        # Dijkstra's algorithm
+        pq = [(0, k)]
+        vis = set()
+        delay = 0
+
+        while pq:
+            time, node = heapq.heappop(pq)
+            if node not in vis:
+                vis.add(node)
+                delay = max(delay, time)
+
+                for neighbour, t in adj_list.get(node, []):
+                    if neighbour not in vis:
+                        heapq.heappush(pq, (time + t, neighbour))
+        return delay if len(vis) == n else -1
