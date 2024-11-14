@@ -1,0 +1,38 @@
+// Java - Graph, DFS 
+class Solution {
+    public int maxAreaOfIsland(int[][] grid) {
+        int row = grid.length;
+        int col = grid[0].length;
+        int res = 0;
+
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (grid[i][j] == 1) {
+                    int area = 0;
+                    area = dfs(grid, i, j, area);
+                    res = Math.max(area, res);
+                }
+            }
+        }
+        return res;
+    }
+
+    private int dfs(int[][] m, int i, int j, int area) {
+        // exploring the four possible directions (up, down, right, left).
+        int[] rowDir = {-1, 1, 0, 0};
+        int[] colDir = {0, 0, 1, -1};
+        // Marks the visited cell as 0 to avoid revisiting.
+        m[i][j] = 0;
+        area++;
+
+        for (int d = 0; d < 4; d++) {
+            int newRow = i + rowDir[d];
+            int newCol = j + colDir[d];
+
+            if (newRow >= 0 && newRow < m.length && newCol >= 0 && newCol <m[0].length && m[newRow][newCol] == 1) {
+                area = dfs(m, newRow, newCol, area);       // Recursively calls dfs for adjacent cells that contain 1.
+            }
+        }
+        return area;
+    }
+}
