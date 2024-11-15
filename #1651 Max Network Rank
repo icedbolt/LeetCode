@@ -1,0 +1,22 @@
+class Solution:
+    def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:
+        graph = [[False] * n for _ in range(n)]  # adj matrix
+        for x, y in roads:
+            graph[x][y] = graph[y][x] = True
+        
+        ans = 0
+        for i in range(n):
+            for j in range(n):
+                if i == j:
+                    continue
+                cur = 0
+                for k in range(n):
+                    if k != i and k != j:
+                        if graph[i][k]:
+                            cur += 1
+                        if graph[j][k]:
+                            cur += 1
+                if graph[i][j]:
+                    cur += 1
+                ans = max(ans, cur)
+        return ans
