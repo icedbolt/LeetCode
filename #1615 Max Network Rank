@@ -1,16 +1,16 @@
 class Solution:
     def maximalNetworkRank(self, n: int, roads: List[List[int]]) -> int:
-        graph = [[False] * n for _ in range(n)]  # adj matrix
-        for x, y in roads:
+        graph = [[False] * n for _ in range(n)]          # adj matrix
+        for x, y in roads:            # For each road [x, y], the matrix g is updated to mark g[x][y] and g[y][x] as True
             graph[x][y] = graph[y][x] = True
         
         ans = 0
         for i in range(n):
             for j in range(n):
-                if i == j:
+                if i == j:                # we skip since we are only interested in pairs of distinct cities.
                     continue
                 cur = 0
-                for k in range(n):
+                for k in range(n):                # iterate through each city k
                     if k != i and k != j:
                         if graph[i][k]:
                             cur += 1
