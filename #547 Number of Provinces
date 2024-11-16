@@ -1,0 +1,18 @@
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        # Return no. of times dfs is invoked
+        def dfs(node):
+            vis[node] = True
+            for neighbour in range(n):
+                if isConnected[node][neighbour] == 1 and not vis[neighbour]:
+                    dfs(neighbour)
+        
+        n = len(isConnected)
+        vis = [False] * n
+        res = 0
+  
+        for i in range(n):
+            if not vis[i]:
+                dfs(i)
+                res += 1
+        return res
