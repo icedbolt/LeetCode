@@ -7,7 +7,7 @@ class Solution:
         vis = set()
 
         def dfs(node):
-            if node in vis:
+            if node in vis:        # In case if node is already in pipeline (avoid cycle)
                 return False
             if graph[node] == []:      # Courses with no pre requisite
                 return True
