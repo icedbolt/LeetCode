@@ -1,0 +1,31 @@
+class Solution:
+    def countPaths(self, n: int, roads: List[List[int]]) -> int:
+        # Create an adjacency list for the graph
+        adj = defaultdict(list)
+        for u, v, w in roads:
+            adj[u].append((v, w))
+            adj[v].append((u, w))
+
+        # Initialize the distance array and the ways array
+        dist = [float('inf')] * n
+        ways = [0] * n
+        dist[0] = 0
+        ways[0] = 1
+
+        pq = [(0, 0)]
+
+        mod = int(1e9 + 7)
+
+        # Dijkstra's algorithm
+        while pq:
+            dis, node = heapq.heappop(pq)
+
+            for adjNode, edgeWeight in adj[node]:
+                if dis + edgeWeight < dist[adjNode]:
+                    dist[adjNode] = dis + edgeWeight
+                    heapq.heappush(pq, (dist[adjNode], adjNode))
+                    ways[adjNode] = ways[node]
+                elif dis + edgeWeight == dist[adjNode]:
+                    ways[adjNode] = (ways[adjNode] + ways[node]) % mod
+
+        return ways[n-1] % mod
