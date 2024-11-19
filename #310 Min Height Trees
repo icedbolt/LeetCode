@@ -1,0 +1,73 @@
+// BFS Solution
+class Solution {
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        if (n == 1) return Collections.singletonList(0);
+
+        // Build the graph.
+        List<Set<Integer>> graph = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            graph.add(new HashSet<>());
+        }
+        for (int[] edge : edges) {
+            graph.get(edge[0]).add(edge[1]);
+            graph.get(edge[1]).add(edge[0]);
+        }
+
+        // Find all leaf nodes.
+        Queue<Integer> leaves = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            if (graph.get(i).size() == 1) {
+                leaves.add(i);
+            }
+        }
+
+        // Trim the leaves layer by layer.
+        while (n > 2) {
+            int leafCount = leaves.size();
+            n -= leafCount;
+            for (int i = 0; i < leafCount; i++) {
+                int leaf = leaves.poll();
+                int nei = graph.get(leaf).iterator().next();
+                graph.get(nei).remove(leaf);
+                if (graph.get(nei).size() == 1) {
+                    leaves.add(nei);
+                }            
+            }
+        }
+---------------------------------------------------------------------------------------------------------------
+# Python BFS
+class Solution:
+    def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
+        if n == 1:
+            return [0]
+        
+        # Build the graph as an adjacency list
+        graph = defaultdict(list)
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+        
+        # Find all leaf nodes
+        leaves = deque([i for i in range(n) if len(graph[i]) == 1])
+        
+        # Perform BFS layer by layer, trimming leaves
+        while n > 2:
+            leaf_count = len(leaves)
+            n -= leaf_count
+            
+            for _ in range(leaf_count):
+                leaf = leaves.popleft()
+                # Remove the leaf from its neighbor
+                neighbor = graph[leaf].pop()
+                graph[neighbor].remove(leaf)
+                
+                # If the neighbor becomes a leaf, add it to the queue
+                if len(graph[neighbor]) == 1:
+                    leaves.append(neighbor)
+        
+        # The remaining nodes are the centroids
+        return list(leaves)
+
+        return new ArrayList<>(leaves);
+    }
+}
