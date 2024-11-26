@@ -1,0 +1,33 @@
+# Greedy 
+#Using a greedy strategy, we try to jump as far as possible within our current range before incrementing the jump count.
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        n = len(nums)
+        jumps = 0
+        current_end = 0
+        farthest = 0
+
+        for i in range(n - 1):
+            farthest = max(farthest, i + nums[i])
+            if i == current_end:
+                jumps += 1
+                current_end = farthest
+        
+        return jumps
+---------------------------------------------------------------------------
+//Java
+//DP
+class Solution {
+    public int jump(int[] nums) {
+        int res = 0, n = nums.length;
+        int[] dp = new int[n];
+        Arrays.fill(dp, 10001);
+        dp[n-1] = 0;
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = 1; j <= nums[i]; j++) {
+                dp[i] = Math.min(dp[i], 1 + dp[Math.min(n - 1, i + j)]);
+            }
+        }
+        return dp[0];
+    }
+}
