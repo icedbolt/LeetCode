@@ -1,0 +1,33 @@
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        solve(nums, res, 0);
+        return res;
+    }
+
+    public void solve(int[] a, List<List<Integer>> res, int idx) {
+        if (idx == a.length) {
+            List<Integer> perm = new ArrayList<>();
+            for (int num : a) {
+                perm.add(num);
+            }
+            res.add(perm);
+            return;
+        }
+
+        HashSet<Integer> used = new HashSet<>();
+        for (int i = idx; i < a.length; i++) {
+            if (used.contains(a[i])) continue; // Skip duplicate numbers
+            used.add(a[i]);
+            swap(a, idx, i);
+            solve(a, res, idx + 1);
+            swap(a, idx, i);
+        }
+    }
+
+    public void swap(int[] a, int i, int j) {
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+}
