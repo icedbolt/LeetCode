@@ -1,0 +1,25 @@
+class Solution:
+    def distributeCookies(self, cookies: List[int], k: int) -> int:
+        def backtrack(index, children):
+            # Base case: if all cookie bags are distributed
+            if index == len(cookies):
+                return max(children)  # The unfairness of this distribution
+            
+            min_unfairness = float('inf')
+            
+            # Try giving the current bag of cookies to each child
+            for i in range(k):
+                children[i] += cookies[index]  # Give cookies[index] to child i
+                # Recursively distribute the remaining bags
+                min_unfairness = min(min_unfairness, backtrack(index + 1, children))
+                children[i] -= cookies[index]  # Backtrack
+                
+                # Optimization: Skip redundant distributions (no need to give the same bag to an empty child repeatedly)
+                if children[i] == 0:
+                    break
+            
+            return min_unfairness
+
+        # Start with all children having 0 cookies
+        children = [0] * k
+        return backtrack(0, children)
