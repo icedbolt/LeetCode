@@ -1,0 +1,72 @@
+class Solution:
+    def medianSlidingWindow(self, nums: List[int], k: int) -> List[float]:
+        res = []
+
+        outgoing_num = {}
+
+        min_heap = []
+
+        max_heap = []
+
+        for i in range(k):                    # The first k elements are pushed into min_heap as negatives
+            heappush(min_heap, -nums[i])
+
+        for i in range(k // 2):              # Half the elements from min_heap are moved to max_heap to balance the two heaps.
+            element = heappop(min_heap)
+            heappush(max_heap, -element)
+
+        balance = 0
+        i = k
+        while True:
+            if k % 2 == 1:
+                res.append(float(-min_heap[0]))
+            else:
+                res.append((-min_heap[0] + max_heap[0]) * 0.5)
+
+            if i >= len(nums):
+                break
+
+            out_num = nums[i - k]
+            in_num = nums[i]
+            i += 1
+
+            if out_num <= -min_heap[0]:
+                balance -= 1
+
+            else:
+                balance += 1
+
+            outgoing_num[out_num] = outgoing_num.get(out_num, 0) + 1
+
+            if in_num <= -min_heap[0]:
+                balance += 1
+                heappush(min_heap, -in_num)
+            else:
+                balance -= 1
+                heappush(max_heap, in_num)
+
+            # If balance (difference in heap sizes) becomes non-zero, elements are moved between heaps.
+            if balance < 0:
+                heappush(min_heap, - heappop(max_heap))
+            elif balance > 0:
+                heappush(max_heap, - heappop(min_heap))
+
+            balance = 0
+
+            while (
+                min_heap
+                and -min_heap[0] in outgoing_num
+                and outgoing_num[-min_heap[0]] > 0
+            ):
+                outgoing_num[-min_heap[0]] -= 1
+                heappop(min_heap)
+
+            while (
+                max_heap
+                and max_heap[0] in outgoing_num
+                and outgoing_num[max_heap[0]] > 0
+            ):
+                outgoing_num[max_heap[0]] -= 1
+                heappop(max_heap)
+
+        return res
