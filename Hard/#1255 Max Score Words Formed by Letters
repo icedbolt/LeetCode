@@ -1,0 +1,37 @@
+class Solution:
+    def maxScoreWords(self, words: List[str], letters: List[str], score: List[int]) -> int:
+        def can_form(word_count, available_count):
+            # Check if word can be formed with available letters.
+            return all(word_count[char] <= available_count[char] for char in word_count)
+    
+        def calculate_score(word):
+            """Calculate the score of a word."""
+            return sum(score[ord(char) - ord('a')] for char in word)
+        
+        def dfs(index, available_count):
+            """Recursively explore all word combinations."""
+            if index == len(words):
+                return 0
+            
+            # Without taking the current word
+            max_score = dfs(index + 1, available_count)
+            
+            # Attempt to take the current word
+            word = words[index]
+            word_count = Counter(word)
+            if can_form(word_count, available_count):
+                # Update available letters
+                for char in word_count:
+                    available_count[char] -= word_count[char]
+                
+                # Calculate score including current word
+                max_score = max(max_score, calculate_score(word) + dfs(index + 1, available_count))
+                
+                # Backtrack
+                for char in word_count:
+                    available_count[char] += word_count[char]
+            
+            return max_score
+        
+        available_count = Counter(letters)
+        return dfs(0, available_count)
