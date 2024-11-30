@@ -1,0 +1,11 @@
+// Greedy
+// If target[i] > target[i-1], the difference target[i] - target[i-1] represents the additional increments needed to raise the subarray to target[i].
+class Solution {
+    public int minNumberOperations(int[] target) {
+        int res = target[0];      // The first element target[0] requires its value as the initial increments.
+        for (int i = 1; i < target.length; i++) {
+            res += Math.max(0, target[i] - target[i - 1]);
+        }
+        return res;
+    }
+}
