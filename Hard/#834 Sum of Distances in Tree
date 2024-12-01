@@ -1,0 +1,46 @@
+class Solution:
+    def sumOfDistancesInTree(self, n: int, edges: List[List[int]]) -> List[int]:
+        graph = defaultdict(list)
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+        
+        # Initialize arrays
+        subtree_size = [0] * n
+        subtree_sum = [0] * n
+        result = [0] * n
+        
+        # Post-order DFS to calculate subtree sizes and subtree sums
+        def post_order(node, parent):
+            subtree_size[node] = 1
+            for neighbor in graph[node]:
+                if neighbor != parent:
+                    post_order(neighbor, node)
+                    subtree_size[node] += subtree_size[neighbor]
+                    subtree_sum[node] += subtree_sum[neighbor] + subtree_size[neighbor]
+        
+        # Pre-order DFS to calculate results for all nodes
+        def pre_order(node, parent):
+            result[node] = subtree_sum[node]
+            for neighbor in graph[node]:
+                if neighbor != parent:
+                    # Adjust subtree_sum for the neighbor
+                    subtree_sum[node] -= subtree_sum[neighbor] + subtree_size[neighbor]
+                    subtree_size[node] -= subtree_size[neighbor]
+                    subtree_sum[neighbor] += subtree_sum[node] + subtree_size[node]
+                    subtree_size[neighbor] += subtree_size[node]
+                    
+                    # Recurse
+                    pre_order(neighbor, node)
+                    
+                    # Restore values after recursion
+                    subtree_size[neighbor] -= subtree_size[node]
+                    subtree_sum[neighbor] -= subtree_sum[node] + subtree_size[node]
+                    subtree_size[node] += subtree_size[neighbor]
+                    subtree_sum[node] += subtree_sum[neighbor] + subtree_size[neighbor]
+        
+        # Run both DFS traversals
+        post_order(0, -1)
+        pre_order(0, -1)
+        
+        return result
