@@ -1,0 +1,32 @@
+class Solution:
+    def minCameraCover(self, root: Optional[TreeNode]) -> int:
+        # Define the states
+        # 0: Node needs a camera
+        # 1: Node is covered by a camera
+        # 2: Node has a camera
+        
+        def dfs(node):
+            if not node:
+                return 1  # Null nodes are always covered
+            
+            left = dfs(node.left)
+            right = dfs(node.right)
+            
+            # If any child needs a camera, this node must have a camera
+            if left == 0 or right == 0:
+                self.cameras += 1
+                return 2  # Place a camera here
+            
+            # If any child has a camera, this node is covered
+            if left == 2 or right == 2:
+                return 1  # Covered
+            
+            # Otherwise, this node needs a camera
+            return 0
+        
+        self.cameras = 0
+        # If the root still needs a camera after traversal, add one
+        if dfs(root) == 0:
+            self.cameras += 1
+        
+        return self.cameras
