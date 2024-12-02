@@ -1,0 +1,22 @@
+class Solution:
+    def swimInWater(self, grid: List[List[int]]) -> int:
+        # Dijkstra's algo using min heap
+        n = len(grid)
+        vis = set()
+        min_heap = [[grid[0][0], 0, 0]]     # [time/max-height, r, c]
+        dir = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+
+        vis.add((0, 0))
+        while min_heap:
+            t, r, c = heapq.heappop(min_heap)
+            if r == n - 1 and c == n - 1:
+                return t
+            
+            for dr, dc in dir:
+                neiR, neiC = r + dr, c + dc
+                if (neiR < 0 or neiC < 0 or 
+                    neiR == n or neiC == n or
+                    (neiR, neiC) in vis):
+                    continue
+                vis.add((neiR, neiC))
+                heapq.heappush(min_heap, [max(t, grid[neiR][neiC]), neiR, neiC])
