@@ -1,0 +1,39 @@
+class Solution:
+    def criticalConnections(self, n: int, connections: List[List[int]]) -> List[List[int]]:
+        # Step 1: Build graph
+        graph = defaultdict(list)
+        for u, v in connections:
+            graph[u].append(v)
+            graph[v].append(u)
+        
+        # Step 2: Initialize variables
+        discovery = [-1] * n  # Discovery times of nodes
+        low = [-1] * n        # Low-link values
+        result = []           # Store critical connections
+        time = 0              # Global timer for discovery times
+        
+        # Step 3: Define DFS function
+        def dfs(node, parent):
+            nonlocal time
+            discovery[node] = low[node] = time
+            time += 1
+            
+            for neighbor in graph[node]:
+                if neighbor == parent:
+                    continue  # Skip the edge to the parent
+                
+                if discovery[neighbor] == -1:  # If neighbor is unvisited
+                    dfs(neighbor, node)  # Visit neighbor
+                    # Update low-link value
+                    low[node] = min(low[node], low[neighbor])
+                    
+                    # Check if edge (node, neighbor) is a bridge
+                    if low[neighbor] > discovery[node]:
+                        result.append([node, neighbor])
+                else:
+                    # Update low-link for back edge
+                    low[node] = min(low[node], discovery[neighbor])
+        
+        # Step 4: Start DFS from node 0
+        dfs(0, -1)
+        return result
