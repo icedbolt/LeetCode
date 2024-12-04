@@ -13,7 +13,7 @@ class Solution:
                 j = stack[-1]
                 pos2, speed2 = cars[j]
                 
-                # If speed is not greater, or collision is not valid, remove from stack
+                # If speed is not greater, or collision is not valid (evaluating car has already formed a fleet), remove from stack
                 if speed <= speed2 or (pos2 - pos) / (speed - speed2) >= result[j] > 0:
                     stack.pop()
                 else:
