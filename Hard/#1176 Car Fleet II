@@ -1,0 +1,33 @@
+class Solution:
+    def getCollisionTimes(self, cars: List[List[int]]) -> List[float]:
+        n = len(cars)
+        result = [-1] * n  # Initialize collision times as -1 (no collision)
+        stack = []  # Monotonic stack to store potential collisions
+        
+        # Traverse cars from right to left
+        for i in range(n - 1, -1, -1):
+            pos, speed = cars[i]
+            
+            # Check and remove invalid collisions
+            while stack:
+                j = stack[-1]
+                pos2, speed2 = cars[j]
+                
+                # If speed is not greater, or collision is not valid, remove from stack
+                if speed <= speed2 or (pos2 - pos) / (speed - speed2) >= result[j] > 0:
+                    stack.pop()
+                else:
+                    break
+            
+            # Calculate collision time with the car in front
+            if stack:
+                j = stack[-1]
+                pos2, speed2 = cars[j]
+                result[i] = (pos2 - pos) / (speed - speed2)
+            
+            stack.append(i)  # Add current car to the stack
+        
+        return result
+
+# Time Complexity: O(n), as each car is processed once.
+# Space Complexity: O(n), for the stack.
