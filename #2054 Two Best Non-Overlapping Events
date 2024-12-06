@@ -1,0 +1,47 @@
+// Java
+class Solution {
+    public int maxTwoEvents(int[][] events) {
+        int ans = 0, max = 0;
+        Arrays.sort(events, (x, y) -> x[0] - y[0]);
+        PriorityQueue<int[]> pq = new PriorityQueue<>((x, y) -> x[1] - y[1]);
+        
+        for (int[] currentEvent : events) {
+            while (!pq.isEmpty() && pq.peek()[1] < currentEvent[0]) {
+                max = Math.max(max, pq.poll()[2]);
+            }
+            ans = Math.max(ans, max + currentEvent[2]);
+            pq.offer(currentEvent);
+        }
+        return ans;
+    }
+}
+--------------------------------------------------------------------------------------------------
+# Python
+from heapq import heappush, heappop
+
+class Solution:
+    def maxTwoEvents(self, events):
+        # Initialize variables
+        ans = 0
+        max_value = 0
+        
+        # Sort events by start time
+        events.sort(key=lambda x: x[0])
+        
+        # Priority queue to track active events (sorted by end time)
+        pq = []
+        
+        for current_event in events:
+            start, end, value = current_event
+            
+            # Remove events from the queue that have ended before the current event starts
+            while pq and pq[0][0] < start:
+                max_value = max(max_value, heappop(pq)[1])
+            
+            # Update the answer by combining max_value with the current event's value
+            ans = max(ans, max_value + value)
+            
+            # Add the current event to the queue
+            heappush(pq, (end, value))
+        
+        return ans
