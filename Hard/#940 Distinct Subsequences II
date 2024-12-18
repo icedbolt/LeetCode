@@ -15,3 +15,27 @@ class Solution:
             
             last[ch] = i
         return (dp[n] - 1) % mod
+--------------------------------------------------------------------------------------------
+// Java
+// Java
+class Solution {
+    public int distinctSubseqII(String s) {
+        int n = s.length();
+        int[] dp = new int[n+1];
+        dp[0] = 1;
+        int mod = 1000000007;
+        HashMap<Character, Integer> list = new HashMap<>();
+
+        for(int i = 1; i <= n; i++) {
+            char ch = s.charAt(i - 1);
+            dp[i] = (2 * dp[i-1]) % mod;      // Double the subsequences
+
+            if (list.containsKey(ch)) {
+                dp[i] = (dp[i] - dp[list.get(ch) - 1]) % mod;      // Subtract the contribution of the previous occurrence of the character
+            }
+
+            list.put(ch, i);
+        }
+        return (dp[n] - 1 + mod) % mod;
+    }
+}
