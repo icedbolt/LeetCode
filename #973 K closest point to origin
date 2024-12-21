@@ -22,3 +22,16 @@ class Solution {
         return Math.sqrt(point[0] * point[0] + point[1] * point[1]);      // Calculate distance of the point from origin.
     }
 }
+-------------------------------------------------------------------------------------------------------------------------------------------
+# Python, Math
+class Solution:
+    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
+        
+        def calculate(x1, y1, x2, y2):
+            return (x1 - x2) ** 2 + (y1 - y2) ** 2
+    
+        dist = [(calculate(0, 0, x, y), [x, y]) for (x, y) in points]
+    
+        dist.sort(key=lambda x:x[0])
+    
+        return [dist[i][1] for i in range(k)]
