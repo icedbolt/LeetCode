@@ -23,15 +23,24 @@ class Solution {
     }
 }
 -------------------------------------------------------------------------------------------------------------------------------------------
-# Python, Math
-class Solution:
-    def kClosest(self, points: List[List[int]], k: int) -> List[List[int]]:
-        
-        def calculate(x1, y1, x2, y2):
-            return (x1 - x2) ** 2 + (y1 - y2) ** 2
-    
-        dist = [(calculate(0, 0, x, y), [x, y]) for (x, y) in points]
-    
-        dist.sort(key=lambda x:x[0])
-    
-        return [dist[i][1] for i in range(k)]
+// Math
+class Solution {
+    public int[][] kClosest(int[][] points, int k) {
+        ArrayList<int[]> dist = new ArrayList<>();
+        for (int[] point: points) {
+            int x = point[0];
+            int y = point[1];
+            int d = x * x + y * y;
+            dist.add(new int[]{d, x, y});
+        }
+
+        dist.sort((a, b) -> Integer.compare(a[0], b[0]));
+
+        int[][] res = new int[k][2];
+        for (int i = 0; i < k; i++) {
+            res[i][0] = dist.get(i)[1];
+            res[i][1] = dist.get(i)[2];
+        }
+        return res;
+    }
+}
