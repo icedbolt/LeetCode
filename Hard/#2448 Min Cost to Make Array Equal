@@ -1,0 +1,20 @@
+class Solution:
+    def minCost(self, nums: List[int], cost: List[int]) -> int:
+        def calculateCost(target):
+          total_cost = 0
+          for i in range(len(nums)):
+              total_cost += abs(nums[i] - target) * cost[i]
+          return total_cost
+
+        # Use binary search to find the value that minimizes the total cost
+        left, right = min(nums), max(nums)
+        while left < right:
+            mid = (left + right) // 2
+            cost1 = calculateCost(mid)
+            cost2 = calculateCost(mid + 1)
+            if cost1 <= cost2:
+                right = mid
+            else:
+                left = mid + 1
+
+        return calculateCost(left)
