@@ -17,9 +17,8 @@ class Solution {
         boolean[] dp = new boolean[target + 1];
         dp[0] = true;  // A sum of 0 is always possible
 
-        // Iterate through each number in the array
         for (int num : nums) {
-            // Update dp array from right to left
+            // Update dp array from right to left (to avoid overwriting results for the same number in the same iteration).
             for (int j = target; j >= num; j--) {
                 dp[j] = dp[j] || dp[j - num];
             }
