@@ -1,0 +1,55 @@
+// Java
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int n = matrix.length;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();   
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                pq.add(matrix[i][j]);
+            }
+        }
+        for (int i = 0; i < k-1; i++) {
+            pq.poll();
+        }
+        return pq.poll();
+    }
+}
+// T = O(n^2 log n)
+-------------------------------------------------------------------------------------
+// T = O(n^2)
+class Solution {
+    public int kthSmallest(int[][] matrix, int k) {
+        int n = matrix.length;
+        int low = matrix[0][0], high = matrix[n - 1][n - 1];
+        
+        while (low < high) {
+            int mid = low + (high - low) / 2;  // Avoid potential overflow
+            int count = countLessThanEqual(matrix, mid, n, k);  // Pass k for early exit
+
+            if (count < k) {
+                low = mid + 1;
+            } else {
+                high = mid;
+            }
+        }
+        
+        return low;
+    }
+
+    private int countLessThanEqual(int[][] matrix, int x, int n, int k) {
+        int count = 0;
+        int row = n - 1, col = 0;
+
+        while (row >= 0 && col < n) {
+            if (matrix[row][col] <= x) {
+                count += (row + 1);  // Add all elements in this column up to row
+                col++;  // Move right
+            } else {
+                row--;  // Move up
+            }
+            if (count >= k) break;  // Early exit if count reaches or exceeds k
+        }
+
+        return count;
+    }
+}
