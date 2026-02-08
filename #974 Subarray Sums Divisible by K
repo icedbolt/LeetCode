@@ -1,0 +1,20 @@
+def subarraysDivByK(self, nums: List[int], k: int) -> int:
+
+    # Q - How many pairs of prefix sums have the same remainder when divided by k
+    # A subarray sum from index i+1 to j is divisible by k if and only if:
+    # (prefixSum[j] - prefixSum[i]) % k == 0 => prefixSum[j] % k == prefixSum[i] % k
+
+    count = {0:1}
+    prefixSum = 0
+    res = 0
+
+    for n in nums:
+        prefixSum += n
+        rem = prefixSum % k
+
+        if rem < 0:
+            rem += k
+
+        res += count.get(rem, 0)
+        count[rem] = count.get(rem, 0) + 1
+    return res
