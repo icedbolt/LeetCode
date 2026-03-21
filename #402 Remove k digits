@@ -48,3 +48,16 @@ def removeKdigits(self, num: str, k: int) -> str:
     res = ''.join(stack).lstrip('0')
 
     return res if res else '0'
+
+==============LOGIC========================
+digit   stack (before pop)       action
+  1   →  []          push         → [1]
+  4   →  [1]         1<4, push    → [1,4]
+  3   →  [1,4]       4>3, POP k=2 → [1,3]        ← removed '4'
+  2   →  [1,3]       3>2, POP k=1 → [1,2]        ← removed '3'
+  2   →  [1,2]       2=2, push    → [1,2,2]
+  1   →  [1,2,2]     2>1, POP k=0 → [1,2,1]      ← removed '2'
+                     k=0, stop popping
+  9   →  [1,2,1]     push         → [1,2,1,9]
+
+Result: "1219" ✓
