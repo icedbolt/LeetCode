@@ -1,0 +1,29 @@
+# Brute Force
+
+def findSubstring(self, s: str, words: List[str]) -> List[int]:
+    n = len(s)
+    num_words = len(words)
+    word_len = len(words[0])
+    window_size = num_words * word_len
+    res = []
+
+    word_count = {}
+    for w in words:
+        word_count[w] = word_count.get(w, 0) + 1
+    
+    # Sliding window
+    for i in range(n - window_size + 1):
+        seen = {}
+        j = 0      # number of words matched so far
+        while j < num_words:
+            word_start = i + (j * word_len)
+            word = s[word_start : word_start + word_len]
+            if word not in word_count:
+                break
+            seen[word] = seen.get(word, 0) + 1
+            if seen[word] > word_count[word]:
+                break
+            j += 1
+        if j == num_words:
+            res.append(i)
+    return res
