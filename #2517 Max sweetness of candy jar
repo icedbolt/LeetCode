@@ -31,3 +31,45 @@ class Solution {
         return false;
     }
 }
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+# Python
+
+# brute force
+
+def maximumTastiness(self, price: list[int], k: int) -> int:
+    price = sorted(price)
+    best = 0
+    for basket in combinations(price, k):  # Every combination of k candies
+        tasty = float('inf')
+        for i in range(k-1):
+            tasty = min(tasty, basket[i+1] - basket[i])   # smallest difference always b/w neighbours
+        best = max(best, tasty)
+    return best
+
+# Time: O(C(n, k) · k), which grows exponentially with n. It's only usable for small inputs (about n ≤ 20).
+
+# Fast solution - Binary search
+
+price.sort()
+    def canpick(d):
+        cnt = 1
+        last = price[0]
+        for p in price[1:]:
+            if p - last >= d:
+                cnt += 1
+                last = p
+                if cnt == k:
+                    return True
+        return False
+    
+    lo, hi = 0, price[-1] - price[0]
+    ans = 0
+    while lo <= hi:
+        mid = (lo + hi)//2
+        if canpick(mid):         # Can we pick k candies so that every neighbor gap is at least 'mid'?
+            ans = mid
+            lo = mid + 1
+        else:
+            hi = mid - 1
+    return ans
