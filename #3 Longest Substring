@@ -9,6 +9,8 @@ def lengthOfLongestSubstring(self, s: str) -> int:
         charSet.add(s[r])
         ans = max(ans,  r - l + 1)
     return ans
+
+T = O(n), Set lookup and removal take O(1) average time. 
 ---------------------------------------------------------------------
 S = O(1)  T = O(N)
 
