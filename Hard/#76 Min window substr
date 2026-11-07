@@ -6,6 +6,61 @@ Iterate over all substring:
   Update min.
 */
 
+
+# Python solution with comments:
+
+def minWindow(self, s: str, t: str) -> str:
+    n, m = len(s), len(t)
+
+    # freq of characters in current window
+    freqS = [0] * 256
+    freqT = [0] * 256
+
+    # store freq of every char in t
+    for ch in t:
+        freqT[ord(ch)] += 1      # stores int value against the char
+
+    # sliding window pointers
+    j = 0
+    i = 0
+    
+    # min window length found so far
+    minlen = float('inf')
+
+    # starting index of min window 
+    starti = -1
+
+    # no. of char from t matched so far
+    cnt = 0
+
+    # expand the window from right 
+    while j < n:
+        freqS[ord(s[j])] += 1
+        if freqS[ord(s[j])] <= freqT[ord(s[j])]:
+            cnt += 1 # we matched one more char
+
+        # ensure we haven't exceeded its required frequency
+        if cnt == m:
+            while freqS[ord(s[i])] > freqT[ord(s[i])]:
+                # remove left most char from the window
+                freqS[ord(s[i])] -= 1
+                i += 1
+            # update the minlen
+            length = j - i + 1
+            if length < minlen:
+                minlen = length
+                starti = i
+            #minlen = min(length, minlen)
+            #starti = i , in this case starti will get updated when the current window is not the smallest.
+        j += 1
+    
+    if starti == -1:
+        return ""
+    
+    return s[starti:starti + minlen]
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 // Java - O(n), using frequency array and sliding window:
 
 // Create frequency array and compare the freq of required charaters.
