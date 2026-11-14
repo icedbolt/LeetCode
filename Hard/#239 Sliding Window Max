@@ -41,20 +41,26 @@ from collections import deque
 
 class Solution:
     def maxSlidingWindow(self, nums, k):
-        dq = deque()
-        res = []
+        dq = deque() # Stores indices of elements in decreasing order of values
+        res = [] # Stores the maximum of each window
 
+        # Step 1: Process the first window of size k
         for i in range(k):
+            # Remove elements smaller than or equal to the current element
+            # They can never be the maximum while the current element is in the window
             while dq and nums[i] >= nums[dq[-1]]:
                 dq.pop()
             dq.append(i)
 
+        # Step 2: Slide the window through the remaining elements
         for i in range(k, len(nums)):
             res.append(nums[dq[0]])
 
             while dq and dq[0] <= i - k:
                 dq.popleft()
 
+            # Remove indices that are outside the current window
+            # Current window starts at index i - k + 1
             while dq and nums[i] >= nums[dq[-1]]:
                 dq.pop()
             dq.append(i)
